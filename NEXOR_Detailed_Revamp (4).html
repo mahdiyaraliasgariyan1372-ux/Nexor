@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#100b1c">
+<title>NEXOR | Gaming Hub</title>
+<style>
+:root{--bg:#09070f;--panel:#151020;--panel2:#1c142b;--purple:#9b5cff;--purple2:#c19aff;--text:#f5efff;--muted:#b6a8c9;--line:#332443;--green:#7cf2bd}
+*{box-sizing:border-box}
+body{margin:0;background:radial-gradient(ellipse at 80% -15%,#321b55 0,transparent 45%),var(--bg);color:var(--text);font-family:system-ui,-apple-system,"Segoe UI",Tahoma,sans-serif}
+a{color:inherit;text-decoration:none}
+header{position:sticky;top:0;z-index:10;background:#0c0914eF;backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+.nav{max-width:1200px;margin:auto;padding:14px 18px;display:flex;align-items:center;justify-content:space-between;gap:14px}
+.brand{font-size:25px;font-weight:900;letter-spacing:2px;color:#c5a0ff}.brand span{color:#fff}
+.navlinks{display:flex;gap:18px;color:var(--muted);font-size:14px}.navlinks a:hover{color:white}
+.hero{max-width:1200px;margin:24px auto 16px;padding:36px 18px 30px;display:flex;align-items:center;gap:24px}
+.heroText{flex:1}.eyebrow{color:var(--purple2);font-weight:700;font-size:13px;letter-spacing:1px}
+h1{font-size:clamp(32px,6vw,62px);line-height:1.1;margin:12px 0}h1 em{font-style:normal;color:var(--purple2)}
+.hero p{color:var(--muted);line-height:1.9;max-width:600px}
+.heroVisual{flex:1;min-width:250px;min-height:210px;border:1px solid #56347a;border-radius:24px;background:linear-gradient(135deg,#211232,#100d1a 55%,#361b5a);display:grid;place-items:center;position:relative;overflow:hidden}
+.heroVisual:before,.heroVisual:after{content:"";position:absolute;border:1px solid #ad7aff55;border-radius:50%;width:280px;height:280px;transform:rotate(-24deg)}.heroVisual:after{width:190px;height:190px;border-color:#ad7aff99}
+.bigpad{font-size:95px;filter:drop-shadow(0 0 20px #9b5cff66);z-index:1}
+main{max-width:1200px;margin:auto;padding:0 18px 60px}
+.sectionHead{display:flex;align-items:end;justify-content:space-between;gap:12px;margin:24px 0 16px}
+.sectionHead h2{margin:0;font-size:24px}.sectionHead p{margin:5px 0 0;color:var(--muted);font-size:13px}
+.filters{display:flex;gap:8px;flex-wrap:wrap;margin:14px 0}
+.chip{border:1px solid var(--line);background:var(--panel);color:var(--muted);border-radius:99px;padding:9px 14px;cursor:pointer;font:inherit}
+.chip.active,.chip:hover{background:#4b2677;border-color:#9b5cff;color:#fff}
+.search{width:100%;max-width:360px;background:#120e1c;border:1px solid var(--line);border-radius:12px;padding:12px 14px;color:white;font:inherit;outline:none}
+.search:focus{border-color:var(--purple)}
+.games{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:15px}
+.game{border:1px solid var(--line);background:linear-gradient(180deg,#1b1427,#110d19);border-radius:17px;overflow:hidden;cursor:pointer;transition:.2s transform,.2s border-color}
+.game:hover{transform:translateY(-4px);border-color:#9860e7}
+.cover{height:145px;display:grid;place-items:center;font-size:52px;background:linear-gradient(135deg,var(--c1),var(--c2));position:relative;overflow:hidden}
+.cover:after{content:"";position:absolute;inset:0;background:linear-gradient(0deg,#08061188,transparent 60%)}
+.cover span{filter:drop-shadow(0 3px 7px #0009);z-index:1}
+.gameBody{padding:12px}.gameBody h3{margin:0 0 6px;font-size:16px}.gameBody p{margin:0;color:var(--muted);font-size:12px}.tags{display:flex;gap:6px;flex-wrap:wrap;margin-top:10px}.tag{font-size:11px;color:#d6c1ff;border:1px solid #533b70;background:#271b39;padding:4px 8px;border-radius:20px}.psTag{color:#b8d8ff;border-color:#37618e;background:#182d46}
+.newsGrid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.newsCard{border:1px solid var(--line);border-radius:16px;padding:18px;background:var(--panel);display:flex;flex-direction:column;gap:8px}
+.newsCard .logo{font-weight:900;font-size:21px;color:var(--purple2)}.newsCard p{color:var(--muted);font-size:13px;line-height:1.8;margin:0}.newsCard a{margin-top:auto;padding-top:8px;color:#c7a5ff;font-weight:700}
+.zoomgHeadlines{display:flex;flex-direction:column;gap:8px;margin:6px 0}
+.zoomgHeadlines a{margin:0;padding:8px 10px;border:1px solid var(--line);border-radius:9px;background:#120e1c;font-size:12px;line-height:1.7}
+
+footer{text-align:center;color:var(--muted);border-top:1px solid var(--line);padding:24px 16px;font-size:12px}
+.modal{position:fixed;inset:0;background:#000b;backdrop-filter:blur(6px);z-index:30;display:none;overflow:auto;padding:18px}.modal.open{display:grid;place-items:center}
+.dialog{width:min(850px,100%);background:#120d1d;border:1px solid #543578;border-radius:22px;overflow:hidden;box-shadow:0 24px 90px #0009}
+.modalTop{padding:20px;display:flex;gap:16px;align-items:center;background:linear-gradient(120deg,#2b1746,#14101e)}
+.modalArt{width:112px;height:112px;flex:none;border-radius:16px;display:grid;place-items:center;font-size:46px;background:linear-gradient(135deg,var(--c1),var(--c2))}
+.modalTitle h2{margin:0 0 8px}.modalTitle p{margin:0;color:var(--muted)}
+.close{margin-right:auto;border:1px solid #694d8c;background:#211531;color:#fff;border-radius:10px;padding:8px 12px;cursor:pointer}
+.modalContent{padding:20px}.description{line-height:1.9;color:#ddd2ed}
+.infoGrid{display:grid;grid-template-columns:repeat(4,1fr);gap:9px;margin:16px 0}
+.info{background:var(--panel2);border:1px solid var(--line);border-radius:12px;padding:12px}.info small{display:block;color:var(--muted);font-size:11px}.info b{display:block;margin-top:5px;font-size:13px}
+.fpsTitle{margin:20px 0 10px}.fpsTable{width:100%;border-collapse:collapse;border:1px solid var(--line);border-radius:12px;overflow:hidden}
+.fpsTable th,.fpsTable td{text-align:right;padding:11px 10px;border-bottom:1px solid var(--line);font-size:13px}.fpsTable th{background:#251638;color:#d8c2ff}.fpsTable td{background:#171020}.fpsTable tr:last-child td{border-bottom:0}
+.fps{color:var(--green);font-weight:800}.fineprint{font-size:11px;color:var(--muted);line-height:1.8;margin-top:10px}
+
+#topBack{cursor:pointer;font:inherit}
+.longDetails{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin:18px 0}
+.detailBlock{background:#171020;border:1px solid #352445;border-radius:13px;padding:14px}
+.detailBlock h4{margin:0 0 8px;color:#c5a0ff;font-size:14px}
+.detailBlock p{margin:0;color:#e4d9f1;font-size:13px;line-height:1.9}
+@media(max-width:600px){.longDetails{grid-template-columns:1fr}}
+@media(max-width:900px){.games{grid-template-columns:repeat(3,1fr)}.hero{padding-top:22px}.infoGrid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:650px){.navlinks{display:none}.hero{display:block;padding-top:24px}.heroVisual{margin-top:20px;min-height:170px}.bigpad{font-size:74px}.games{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.cover{height:118px}.newsGrid{grid-template-columns:1fr}.sectionHead{align-items:start;flex-direction:column}.modal{padding:9px}.modalTop{padding:14px;gap:10px}.modalArt{width:80px;height:80px;font-size:36px}.modalContent{padding:14px}.fpsTable th,.fpsTable td{padding:9px 7px;font-size:11px}.info{padding:10px}}
+
+.backCorner{position:fixed;top:68px;right:10px;z-index:50;background:#251638;border:1px solid #9b5cff;color:#f5efff;border-radius:12px;padding:9px 13px;font-weight:700;box-shadow:0 5px 20px #0008;cursor:pointer}
+.backCorner:hover{background:#512b80}
+@media(max-width:600px){.backCorner{top:64px;right:8px;padding:8px 11px;font-size:13px}}
+
+.dossierIntro{margin:0 0 18px;padding:14px 16px;border:1px solid #493260;border-radius:14px;background:linear-gradient(120deg,#241536,#151020);color:#e9def8;line-height:1.9}
+.dossierHeading{display:flex;align-items:center;gap:9px;margin:25px 0 12px;color:#e8d7ff;font-size:18px}
+.dossierHeading:after{content:"";height:1px;flex:1;background:#39284d}
+.detailBlock{min-height:100%;position:relative}
+.detailBlock p{white-space:pre-line}
+.detailBlock .detailMeta{display:inline-block;margin-top:9px;color:#b9a5d4;font-size:11px}
+.detailBlock.wide{grid-column:1/-1}
+.longDetails{align-items:stretch}
+.fpsStatus{display:inline-block;border:1px solid #665080;border-radius:20px;padding:3px 8px;font-size:10px;color:#d9c5f4;margin:0 0 8px}
+.fpsStatus.confirmed{border-color:#397c62;color:#9ce8c3}
+.fpsStatus.estimate{border-color:#8a6b36;color:#f0d39a}
+.modal{align-items:start!important}
+.dialog{margin:22px auto}
+@media(max-width:600px){.detailBlock.wide{grid-column:auto}.dialog{margin:8px auto}}
+
+
+.adminOverlay{position:fixed;inset:0;background:#05030bd9;backdrop-filter:blur(7px);z-index:80;display:none;overflow:auto;padding:16px}
+.adminAuthGate{max-width:480px;margin:22px auto 6px}
+.authCard{background:#100b19;border:1px solid #64428c;border-radius:16px;padding:22px;display:flex;flex-direction:column;gap:10px}
+.authCard h3{margin:0;font-size:20px}.authCard p{margin:0;color:#b6a8c9;font-size:13px;line-height:1.8}
+.authCard label{font-size:13px;color:#d9c9ef;margin-top:4px}
+.authCard input{width:100%;box-sizing:border-box;background:#08060e;color:#fff;border:1px solid #64428c;border-radius:10px;padding:12px;font:inherit}
+.authIcon{font-size:30px}.authMessage{min-height:20px;color:#ffb4b4!important}
+.authNotice{border-top:1px solid #39294d;padding-top:10px;font-size:11px!important}
+#adminWorkspace[hidden],#adminPasswordConfirmWrap[hidden]{display:none!important}
+.adminOverlay.open{display:block}
+.adminPanel{max-width:1050px;margin:20px auto;background:#151020;border:1px solid #7650a8;border-radius:20px;padding:20px;box-shadow:0 20px 80px #000b}
+.adminHead{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}.adminHead h2{margin:0}.adminGrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-top:16px}.adminField{display:flex;flex-direction:column;gap:6px}.adminField.full{grid-column:1/-1}.adminField label{font-size:13px;color:#cbb9e5}.adminField input,.adminField textarea,.adminField select{width:100%;background:#0e0a16;color:#f5efff;border:1px solid #49345e;border-radius:10px;padding:10px;font:inherit;min-width:0}.adminField textarea{min-height:78px;resize:vertical}.adminActions{display:flex;gap:8px;flex-wrap:wrap;margin-top:16px}.adminHint{color:#b6a8c9;font-size:12px;line-height:1.9}.adminStatus{margin-top:10px;color:#7cf2bd;font-size:13px;min-height:22px}.adminBtn{border:1px solid #64428c;background:#2b1b40;color:#fff;border-radius:10px;padding:10px 14px;font:inherit;cursor:pointer}.adminBtn.primary{background:#6336a0}.adminBtn.danger{background:#51202c;border-color:#8d394b}.adminBtn:hover{filter:brightness(1.2)}
+@media(max-width:650px){.adminGrid{grid-template-columns:1fr}.adminField.full{grid-column:auto}.adminPanel{padding:14px;margin:4px auto}}
+
+</style>
+</head>
+<body>
+<button class="backCorner" onclick="goBack()" aria-label="برگشت به صفحه قبل">← برگشت</button>
+<header>
+  <nav class="nav">
+    <a class="brand" href="#">NE<span>X</span>OR</a>
+    <div class="navlinks"><a href="#games">بازی‌ها</a><a href="#exoNews">اخبار اگزو</a><a href="#exoStore">فروشگاه اگزو</a><a href="#about">درباره</a></div>
+    <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap"><button class="chip" id="openAdmin" type="button">⚙️ پنل مدیریت</button><button class="chip" id="topBack" type="button">← برگشت</button></div>
+  </nav>
+</header>
+<section class="hero">
+  <div class="heroText">
+    <div class="eyebrow">YOUR NEXT LEVEL STARTS HERE</div>
+    <h1>دنیای بازی،<br><em>یک قدم جلوتر.</em></h1>
+    <p>بازی موردعلاقه‌ات رو پیدا کن، مشخصاتش رو ببین و عملکردش روی پلتفرم‌های مختلف رو بررسی کن.</p>
+    <a class="chip active" href="#games">کشف بازی‌ها ⟵</a>
+  </div>
+  <div class="heroVisual"><div class="bigpad">🎮</div></div>
+</section>
+<main>
+<section id="games">
+  <div class="sectionHead"><div><h2>کتابخانه بازی‌ها</h2><p>روی هر بازی بزن تا پرونده اختصاصی، مشخصات و وضعیت عملکرد را ببینی. فیلتر انحصاری‌های پلی‌استیشن هم اضافه شده است.</p></div><input id="search" class="search" placeholder="🔎 جستجوی بازی..." aria-label="جستجوی بازی"></div>
+  <div class="filters" id="filters">
+    <button class="chip active" data-filter="all">همه</button><button class="chip" data-filter="PC">PC</button><button class="chip" data-filter="PlayStation">PlayStation</button><button class="chip" data-filter="ps">انحصاری‌های پلی‌استیشن</button><button class="chip" data-filter="Xbox">Xbox</button>
+  </div>
+  <div class="games" id="gameGrid"></div>
+</section>
+<section id="news">
+  <div class="sectionHead"><div><h2>اگزو گیم؛ اخبار و فروشگاه</h2><p>خبرهای اگزوگیم و زومجی را دنبال کن و جداگانه وارد فروشگاه رسمی اگزوگیم شو.</p></div></div>
+  <div class="newsGrid">
+    <article class="newsCard" id="exoNews">
+      <div class="logo">EXO MAG</div>
+      <h3 style="margin:0">اخبار و اگزومگ</h3>
+      <p>خبرهای بازی‌ها، معرفی‌ها، رویدادها، سخت‌افزار و مطالب گیمینگ اگزو. برای دیدن تازه‌ترین پست‌ها وارد رسانه رسمی اگزوگیم شو؛ مطالب اگزومگ نیز در همین کانال معرفی می‌شوند.</p>
+      <a href="https://t.me/s/exogame" target="_blank" rel="noopener">ورود به اخبار اگزوگیم ↗</a>
+    </article>
+    <article class="newsCard" id="zoomgNews">
+      <div class="logo">ZOOMG</div>
+      <h3 style="margin:0">اخبار زومجی</h3>
+      <p>تازه‌ترین خبرها، معرفی‌ها، گزارش‌ها و بررسی‌های دنیای بازی از رسانه زومجی. برای مطالعه خبرهای بیشتر وارد وب‌سایت رسمی زومجی شو.</p>
+      <div class="zoomgHeadlines">
+        <a href="https://www.zoomg.ir/game-news/420349-naruto-mobile-global-release-confirmed/" target="_blank" rel="noopener">عرضه جهانی بازی Naruto Mobile ↗</a>
+        <a href="https://www.zoomg.ir/game-news/420345-world-warcraft-game-awards-snub/" target="_blank" rel="noopener">غیبت World of Warcraft در نامزدهای گیم اواردز ↗</a>
+        <a href="https://www.zoomg.ir/game-news/420352-resident-evil-ban-sony-rescue/" target="_blank" rel="noopener">ماجرای تصمیم سونی درباره Resident Evil ↗</a>
+      </div>
+      <a href="https://www.zoomg.ir/" target="_blank" rel="noopener">ورود به وب‌سایت رسمی زومجی ↗</a>
+    </article>
+    <article class="newsCard" id="exoStore">
+      <div class="logo">EXO STORE</div>
+      <h3 style="margin:0">فروشگاه رسمی اگزوگیم</h3>
+      <p>برای مشاهده محصولات گیمینگ، تجهیزات کامپیوتر و کنسول‌ها و بررسی موجودی و قیمت، وارد وب‌سایت فروشگاه شو.</p>
+      <a href="https://exo.ir/" target="_blank" rel="noopener">ورود به فروشگاه اگزو ↗</a>
+    </article>
+  </div>
+  <p style="color:var(--muted);font-size:12px;line-height:1.8;margin-top:12px">توجه: این نسخه HTML خبرها را به‌صورت خودکار داخل سایت همگام‌سازی نمی‌کند؛ دکمه اخبار، رسانه اگزوگیم را باز می‌کند تا جدیدترین مطالب را همان‌جا ببینی.</p>
+</section>
+<section id="about">
+  <div class="sectionHead"><div><h2>درباره NEXOR</h2><p>یک پروژه مستقل گیمینگ؛ بازی‌ها و اعداد عملکرد به‌صورت راهنما و تخمینی ارائه می‌شوند.</p><p>با پنل مدیریت داخل همین سایت، بدون نصب برنامه می‌توانی بازی‌ها و پرونده‌هایشان را ویرایش کنی، بازی تازه اضافه کنی و نسخه HTML جدید بگیری.</p></div></div>
+</section>
+</main>
+<footer>© NEXOR Gaming Hub — ساخته‌شده برای گیمرها 💜</footer>
+
+<div class="adminOverlay" id="adminOverlay" aria-hidden="true">
+ <section class="adminPanel" role="dialog" aria-modal="true" aria-labelledby="adminTitle">
+  <div class="adminHead"><div><h2 id="adminTitle">⚙️ پنل مدیریت NEXOR</h2><p class="adminHint">بدون نصب برنامه؛ اطلاعات را همین‌جا ویرایش کن، ذخیره کن و در پایان نسخه HTML جدید بگیر.</p></div><button class="adminBtn" id="closeAdmin" type="button">✕ بستن</button></div>
+  <div class="adminAuthGate" id="adminAuthGate">
+    <div class="authCard">
+      <div class="authIcon">🔐</div>
+      <h3 id="adminAuthTitle">ورود به مدیریت NEXOR</h3>
+      <p id="adminAuthDescription">برای دسترسی به ابزارهای مدیریت، رمز عبور را وارد کن.</p>
+      <label for="adminPasswordInput">رمز عبور مدیریت</label>
+      <input id="adminPasswordInput" type="password" autocomplete="current-password" minlength="8" placeholder="حداقل ۸ نویسه" />
+      <div id="adminPasswordConfirmWrap" hidden>
+        <label for="adminPasswordConfirm">تکرار رمز عبور</label>
+        <input id="adminPasswordConfirm" type="password" autocomplete="new-password" minlength="8" placeholder="رمز را دوباره وارد کن" />
+      </div>
+      <button class="adminBtn primary" id="adminAuthAction" type="button">ورود</button>
+      <p class="authMessage" id="adminAuthMessage" role="status"></p>
+      <p class="authNotice">این قفل برای جلوگیری از دسترسی اتفاقی روی همین مرورگر است. برای امنیت واقعی در سایت عمومی، احراز هویت باید سمت سرور انجام شود.</p>
+    </div>
+  </div>
+  <div id="adminWorkspace" hidden>
+  <div class="adminGrid">
+   <div class="adminField"><label for="adminGameSelect">انتخاب بازی برای ویرایش</label><select id="adminGameSelect"></select></div>
+   <div class="adminField"><label for="adminName">نام بازی</label><input id="adminName"></div>
+   <div class="adminField"><label for="adminGenre">ژانر</label><input id="adminGenre"></div>
+   <div class="adminField"><label for="adminYear">سال / وضعیت انتشار</label><input id="adminYear"></div>
+   <div class="adminField"><label for="adminStudio">سازنده / ناشر</label><input id="adminStudio"></div>
+   <div class="adminField"><label for="adminSize">حجم بازی</label><input id="adminSize"></div>
+   <div class="adminField"><label for="adminEmoji">ایموجی کارت</label><input id="adminEmoji" maxlength="8"></div>
+   <div class="adminField"><label for="adminC1">رنگ اول کارت (HEX)</label><input id="adminC1" placeholder="#6543a8"></div>
+   <div class="adminField"><label for="adminC2">رنگ دوم کارت (HEX)</label><input id="adminC2" placeholder="#17112d"></div>
+   <div class="adminField"><label><input id="adminPsExclusive" type="checkbox" style="width:auto;margin-left:6px"> انحصاری پلی‌استیشن است</label></div>
+   <div class="adminField full"><label for="adminDesc">معرفی بازی</label><textarea id="adminDesc"></textarea></div>
+   <div class="adminField full"><label for="adminStory">داستان</label><textarea id="adminStory"></textarea></div>
+   <div class="adminField full"><label for="adminGameplay">گیم‌پلی</label><textarea id="adminGameplay"></textarea></div>
+   <div class="adminField full"><label for="adminFeatures">ویژگی‌های اصلی</label><textarea id="adminFeatures"></textarea></div>
+   <div class="adminField full"><label for="adminModes">حالت‌های بازی</label><textarea id="adminModes"></textarea></div>
+   <div class="adminField full"><label for="adminPlatforms">پلتفرم‌ها</label><textarea id="adminPlatforms"></textarea></div>
+   <div class="adminField full"><label for="adminRequirements">سیستم موردنیاز / نکات فنی</label><textarea id="adminRequirements"></textarea></div>
+   <div class="adminField full"><label for="adminFps">جدول عملکرد / FPS (هر ردیف یک آرایه ۴تایی؛ فرمت JSON)</label><textarea id="adminFps" style="min-height:120px;direction:ltr;text-align:left" spellcheck="false"></textarea></div>
+  </div>
+  <div class="adminActions">
+   <button class="adminBtn primary" id="saveGame" type="button">ذخیره تغییرات بازی</button>
+   <button class="adminBtn" id="addGame" type="button">＋ افزودن بازی جدید</button>
+   <button class="adminBtn danger" id="deleteGame" type="button">حذف بازی انتخاب‌شده</button>
+   <button class="adminBtn" id="downloadHtml" type="button">⬇ دریافت فایل HTML ویرایش‌شده</button>
+   <button class="adminBtn" id="exportJson" type="button">پشتیبان JSON</button>
+   <button class="adminBtn" id="importJson" type="button">ورود پشتیبان JSON</button>
+   <input id="jsonFile" type="file" accept="application/json,.json" hidden>
+   <button class="adminBtn" id="resetAdmin" type="button">بازگشت به اطلاعات اولیه فایل</button>
+  </div>
+  <p class="adminHint">ذخیره تغییرات در مرورگر همین دستگاه انجام می‌شود. برای انتقال تغییرات به لپ‌تاپ دیگر یا نگهداری دائمی، روی «دریافت فایل HTML ویرایش‌شده» بزن و فایل جدید را جایگزین نسخه قبلی کن. پشتیبان JSON هم برای نگهداری جداگانه است.</p>
+  <div class="adminStatus" id="adminStatus" role="status"></div>
+  </div>
+ </section>
+</div>
+
+<div class="modal" id="modal" aria-hidden="true">
+  <div class="dialog" role="dialog" aria-modal="true" aria-labelledby="modalName">
+    <div class="modalTop">
+      <div class="modalArt" id="modalEmoji"></div>
+      <div class="modalTitle"><h2 id="modalName"></h2><p id="modalGenre"></p></div>
+      <button class="close" id="closeModal" aria-label="بستن">✕</button>
+    </div>
+    <div class="modalContent">
+      <p class="description" id="modalDescription"></p>
+      <div class="infoGrid" id="infoGrid"></div>
+      <div class="longDetails" id="longDetails"></div>
+      <h3 class="fpsTitle">🎯 FPS / عملکرد پلتفرم‌ها</h3>
+      <table class="fpsTable"><thead><tr><th>پلتفرم</th><th>رزولوشن معمول</th><th>FPS</th><th>یادداشت</th></tr></thead><tbody id="fpsBody"></tbody></table>
+      <p class="fineprint">توجه: اعداد FPS فقط در مواردی که با برچسب هدف/تخمینی آمده‌اند، تخمین یا هدف عملکرد هستند؛ «نامشخص» یعنی عدد قابل تأیید نداریم. فریم واقعی با نسخه بازی، رزولوشن، تنظیمات، نمایشگر و آپدیت تغییر می‌کند. برای عدد قطعی، بنچمارک همان نسخه و پلتفرم را بررسی کنید.</p>
+    </div>
+  </div>
+</div>
+<script>
+let games=/*NEXOR_GAMES_START*/[{"id":12,"name":"Grand Theft Auto VI (GTA 6)","genre":"اکشن، ماجراجویی، جهان‌باز","year":"۱۹ نوامبر ۲۰۲۶ (تاریخ اعلام‌شده)","studio":"Rockstar Games","size":"حجم رسمی اعلام نشده","emoji":"🌴","c1":"#bd6b43","c2":"#32123c","desc":"داستان دو شخصیت Jason و Lucia در ایالت خیالی Leonida و شهر Vice City روایت می‌شود؛ فضایی الهام‌گرفته از فلوریدا با شهر، ساحل، مناطق طبیعی و فرهنگ‌های مختلف. جزئیات نهایی داستان و سیستم‌ها با انتشار رسمی بازی کامل‌تر می‌شوند.","story":"Jason و Lucia در دنیایی پر از جرم، روابط پیچیده و فرصت‌های خطرناک گرفتار می‌شوند. داستان بر همراهی این دو شخصیت و ماجراهایشان در Leonida تمرکز دارد.","gameplay":"جهان‌باز سوم‌شخص؛ رانندگی و وسایل نقلیه، اکتشاف، مأموریت‌های داستانی، تعامل با محیط، فعالیت‌های جانبی و مبارزه. جزئیات برخی فعالیت‌ها و مکانیک‌ها ممکن است با نسخه نهایی تغییر کند.","features":"Vice City و مناطق Leonida؛ شخصیت‌های دوگانه؛ فضای شهری و طبیعی؛ مأموریت‌ها و فعالیت‌های جهان‌باز؛ جلوه‌های بصری نسل جدید.","modes":"بخش داستانی. جزئیات بخش آنلاین و حالت‌های دیگر را فقط پس از تأیید رسمی در این صفحه اضافه می‌کنیم.","platforms":"PlayStation 5، Xbox Series X|S؛ نسخه PC در این کارت تأیید رسمی ندارد.","requirements":"نسخه PC و سیستم موردنیاز آن در این کارت تأیید نشده. برای کنسول، فضای نصب نهایی هنوز اعلام نشده است.","fps":[["PS5","رزولوشن و حالت گرافیکی اعلام نشده","نامشخص","FPS رسمی/بنچمارک معتبر در دسترس نیست"],["Xbox Series X","رزولوشن و حالت گرافیکی اعلام نشده","نامشخص","FPS رسمی/بنچمارک معتبر در دسترس نیست"],["Xbox Series S","رزولوشن و حالت گرافیکی اعلام نشده","نامشخص","FPS رسمی/بنچمارک معتبر در دسترس نیست"],["PC","نسخه PC و تنظیمات اعلام نشده","نامشخص","سیستم موردنیاز رسمی موجود نیست"]]},{"id":11,"name":"Forza Horizon 6","genre":"مسابقه‌ای، جهان‌باز","year":"۲۰۲۶","studio":"Playground Games","size":"حجم نهایی وابسته به نسخه و آپدیت","emoji":"🏁","c1":"#6c52dd","c2":"#17112d","desc":"فستیوال رانندگی در ژاپن با مسیرهای شهری، جاده‌های کوهستانی، مناطق روستایی، چشم‌اندازهای ساحلی و تنوع آب‌وهوایی. بازی بر آزادی رانندگی، جمع‌آوری خودرو و مسابقات متنوع تمرکز دارد.","story":"به‌عنوان راننده‌ای که وارد فستیوال Horizon در ژاپن می‌شود، در رویدادها پیشرفت می‌کنی، شهرت به دست می‌آوری و بخش‌های مختلف نقشه را باز می‌کنی.","gameplay":"رانندگی آرکید با کنترل قابل تنظیم؛ مسابقه خیابانی، مسیرهای خاکی و کراس‌کانتری، چالش‌های سرعت، دریفت، اکتشاف آزاد و شخصی‌سازی خودرو.","features":"محیط ژاپن؛ مجموعه خودروهای متنوع؛ مسابقات خیابانی و خارج جاده؛ رویدادهای چندنفره؛ ساخت رویداد/مسیر در ابزارهای بازی؛ شخصی‌سازی و جمع‌آوری.","modes":"تک‌نفره، رویدادهای آزاد و چندنفره؛ جزئیات حالت‌ها بسته به نسخه/به‌روزرسانی.","platforms":"Xbox Series X|S و PC؛ وضعیت نسخه PS5 و تاریخ انتشار آن را پیش از خرید بررسی کنید.","requirements":"سیستم موردنیاز PC وابسته به نسخه و تنظیمات است؛ فضای نصب نهایی و مشخصات رسمی را از فروشگاه/سازنده بررسی کنید.","fps":[["Xbox Series X","Quality / Performance","هدف 30 / 60","حالت‌های هدف؛ رزولوشن و صحنه می‌تواند تغییر کند"],["Xbox Series S","Quality / Performance","هدف 30 / 60","هدف عملکرد، نه اندازه‌گیری لحظه‌ای"],["PC","رزولوشن و تنظیمات دلخواه","متغیر","وابسته به CPU/GPU، DLSS/FSR و تنظیمات"],["PS5","نسخه/حالت را بررسی کنید","اطلاعات تأییدشده درج نشده","در صورت تغییر پلتفرم، این جدول به‌روزرسانی می‌شود"]]},{"id":15,"name":"Resident Evil Requiem","genre":"ترس بقا، اکشن","year":"۲۰۲۶","studio":"Capcom","size":"حجم رسمی بسته به نسخه","emoji":"🧟","c1":"#a83759","c2":"#1c0f20","desc":"قسمت تازه مجموعه Resident Evil؛ ترکیبی از وحشت، اکتشاف، مدیریت منابع و نبرد با تهدیدهای زیستی. برای جلوگیری از اطلاعات نادرست، جزئیات داستانی این کارت در سطح معرفی کلی نگه داشته شده.","story":"روایت در دنیای Resident Evil و در سایه پیامدهای بحران‌های زیستی دنبال می‌شود. خلاصه داستان و شخصیت‌ها را با اطلاعات رسمی نسخه نهایی تکمیل کنید.","gameplay":"کاوش محیط‌های خطرناک، حل معما، مدیریت مهمات و منابع، مبارزه و مواجهه با دشمنان و باس‌ها.","features":"فضاسازی ترسناک؛ منابع محدود؛ محیط‌های قابل اکتشاف؛ معماها و مبارزه؛ گرافیک نسل جدید.","modes":"حالت‌های اصلی و اضافه فقط پس از تأیید نسخه رسمی درج می‌شوند.","platforms":"پلتفرم‌ها و قابلیت‌های دقیق نسخه را در صفحه رسمی بازی بررسی کنید.","requirements":"حجم، سیستم موردنیاز و تنظیمات گرافیکی PC در این کارت به‌عنوان اعداد قطعی ارائه نشده‌اند.","fps":[["PS5","حالت‌ها/رزولوشن را بررسی کنید","نامشخص","FPS رسمی در این کارت درج نشده"],["Xbox Series X","حالت‌ها/رزولوشن را بررسی کنید","نامشخص","FPS رسمی در این کارت درج نشده"],["Xbox Series S","حالت‌ها/رزولوشن را بررسی کنید","نامشخص","FPS رسمی در این کارت درج نشده"],["PC","سخت‌افزار/تنظیمات وابسته","نامشخص","بنچمارک قابل استناد وارد نشده"]]},{"id":16,"name":"Phantom Blade Zero","genre":"اکشن، مبارزه‌ای","year":"۲۰۲۶","studio":"S-GAME","size":"حجم رسمی اعلام نشده","emoji":"🥷","c1":"#5541a8","c2":"#101322","desc":"اکشن نقش‌آفرینی با حال‌وهوای فانتزی تاریک و الهام از هنرهای رزمی؛ تمرکز اصلی روی مبارزه‌های سریع، طراحی دشمنان، باس‌ها و فضاسازی سینمایی است.","story":"شخصیت اصلی در دنیایی رازآلود با محدودیت زمانی و توطئه‌های مختلف روبه‌رو می‌شود. خلاصه کامل داستان و شخصیت‌ها باید مطابق نسخه نهایی و منابع رسمی تکمیل شود.","gameplay":"مبارزه نزدیک و سریع، جاخالی و دفاع، ترکیب ضربات، سلاح‌های متنوع، دشمنان قدرتمند و باس‌فایت‌های چندمرحله‌ای.","features":"جهان فانتزی تاریک؛ طراحی مبارزه نمایشی؛ سلاح‌های مختلف؛ باس‌های بزرگ؛ محیط‌های سینمایی و اکتشاف.","modes":"تمرکز بر تجربه تک‌نفره اکشن؛ حالت‌های اضافه در صورت تأیید رسمی درج می‌شوند.","platforms":"پلتفرم‌های رسمی و جزئیات نسخه را در صفحه سازنده بررسی کنید.","requirements":"سیستم موردنیاز PC و حجم نصب رسمی در این کارت تأیید نشده.","fps":[["PS5","تنظیمات گرافیکی رسمی را بررسی کنید","نامشخص","FPS رسمی/بنچمارک وارد نشده"],["PC","وابسته به سخت‌افزار و تنظیمات","متغیر","سیستم موردنیاز رسمی بررسی شود"],["Xbox","پلتفرم نسخه را بررسی کنید","نامشخص","اطلاعات تأییدشده در این کارت درج نشده"]]},{"id":17,"name":"Gears of War: E-Day","genre":"شوتر سوم‌شخص، اکشن","year":"در دست توسعه","studio":"The Coalition","size":"اعلام نشده","emoji":"🪖","c1":"#76534b","c2":"#17121d","desc":"داستان به روزهای آغازین جنگ با Locust بازمی‌گردد و تجربه‌ای سینمایی از نبردهای سنگین، سلاح‌های شاخص و تهدیدهای زیرزمینی را وعده می‌دهد.","story":"روایت آغاز Emergence Day و نخستین برخوردهای انسان‌ها با Locust؛ شخصیت‌ها و جزئیات داستان بر اساس معرفی رسمی سازنده.","gameplay":"شوتر سوم‌شخص؛ پوشش‌گیری، تیراندازی سنگین، نبرد نزدیک، دشمنان گروهی و موقعیت‌های سینمایی.","features":"بازگشت به ریشه‌های مجموعه؛ دشمنان Locust؛ طراحی اکشن سنگین؛ فضای تاریک و سینمایی.","modes":"جزئیات حالت‌ها و چندنفره در اطلاعات رسمی نهایی تکمیل شود.","platforms":"پلتفرم‌های رسمی اعلام‌شده را پیش از عرضه بررسی کنید.","requirements":"سیستم موردنیاز، حجم و تنظیمات گرافیکی اعلام نشده.","fps":[["Xbox Series X","اطلاعات گرافیکی نهایی اعلام نشده","نامشخص","FPS رسمی درج نشده"],["PC","سیستم موردنیاز نهایی اعلام نشده","نامشخص","FPS رسمی درج نشده"]]},{"id":14,"name":"Crimson Desert","genre":"اکشن ماجراجویی، جهان‌باز","year":"۲۰۲۶","studio":"Pearl Abyss","size":"حجم وابسته به نسخه","emoji":"🐉","c1":"#8b4732","c2":"#22121b","desc":"ماجراجویی در سرزمین Pywel با نبردهای پرتحرک، مناطق وسیع، مأموریت‌ها، اکتشاف و عناصر فانتزی. بازی روی اکشن و تجربه جهان‌باز تمرکز دارد.","story":"در نقش Kliff و همراهان Greymanes درگیر ماجراها و درگیری‌های سرزمین Pywel می‌شوی؛ روایت، گروه‌ها و مناطق در طول بازی گسترش پیدا می‌کنند.","gameplay":"مبارزه ترکیبی، سلاح‌ها و مهارت‌های مختلف، اکتشاف، مأموریت‌ها، باس‌ها، فعالیت‌های محیطی و سفر در نقشه.","features":"جهان وسیع؛ مبارزه نزدیک؛ باس‌فایت؛ مناطق و فعالیت‌های متنوع؛ جلوه‌های بصری و سیستم‌های اکتشاف.","modes":"تجربه داستانی تک‌نفره؛ حالت‌های مستقل فقط در صورت تأیید سازنده.","platforms":"PC و کنسول‌های نسل جدید؛ فهرست دقیق نسخه و ویژگی‌ها را بررسی کنید.","requirements":"حداقل/پیشنهادی PC و حجم نصب نهایی را از صفحه رسمی بررسی کنید.","fps":[["PC","رزولوشن و کیفیت دلخواه","متغیر","وابسته به GPU/CPU و تنظیمات"],["PS5","حالت گرافیکی وابسته به نسخه","متغیر","برای اعداد دقیق به بنچمارک معتبر مراجعه شود"],["Xbox Series X","حالت گرافیکی وابسته به نسخه","متغیر","برای اعداد دقیق به بنچمارک معتبر مراجعه شود"],["Xbox Series S","جزئیات تنظیمات نسخه بررسی شود","نامشخص","عدد تأییدنشده درج نشده"]]},{"id":18,"name":"Battlefield 6","genre":"شوتر اول‌شخص، جنگی","year":"۲۰۲۵","studio":"Battlefield Studios / EA","size":"بزرگ؛ وابسته به نصب و آپدیت","emoji":"💥","c1":"#6b7e87","c2":"#171c2a","desc":"شوتر نظامی با میدان نبرد تخریب‌پذیر، نبردهای تیمی، وسایل نقلیه و فضای مدرن. تمرکز روی هماهنگی تیم، کلاس‌ها و تغییر تاکتیک در میدان جنگ.","story":"کمپین تک‌نفره در فضای درگیری‌های مدرن و عملیات نظامی دنبال می‌شود. شخصیت‌ها و مأموریت‌ها روایت یک بحران بزرگ را پیش می‌برند.","gameplay":"نبرد پیاده و وسیله‌محور، کلاس‌ها و تجهیزات، تخریب محیط، تاکتیک تیمی، تسخیر نقاط و مبارزه در نقشه‌های بزرگ.","features":"تخریب محیط؛ نبرد چندنفره؛ وسایل نقلیه؛ کلاس‌ها و تجهیزات؛ نقشه‌های متنوع؛ کمپین داستانی.","modes":"کمپین تک‌نفره و حالت‌های چندنفره؛ جزئیات مودها به نسخه و آپدیت وابسته است.","platforms":"PC، PlayStation 5، Xbox Series X|S (پیش از خرید نسخه و مشخصات دقیق را بررسی کنید).","requirements":"سیستم موردنیاز PC و فضای نصب با آپدیت‌ها تغییر می‌کند؛ مشخصات رسمی را بررسی کنید.","fps":[["PC","1080p/1440p با تنظیمات قابل تغییر","متغیر","به سخت‌افزار و تنظیمات بستگی دارد"],["PS5","Performance/Quality بسته به حالت","متغیر","به نسخه/آپدیت وابسته؛ عدد قطعی اینجا درج نشده"],["Xbox Series X","Performance/Quality بسته به حالت","متغیر","به نسخه/آپدیت وابسته"],["Xbox Series S","تنظیمات کنسولی متغیر","متغیر","عدد دقیق نیازمند بنچمارک معتبر"]]},{"id":19,"name":"Assassin’s Creed Shadows","genre":"اکشن مخفی‌کاری، جهان‌باز","year":"۲۰۲۵","studio":"Ubisoft","size":"حجم وابسته به نسخه","emoji":"🥷","c1":"#7450a8","c2":"#15101e","desc":"ماجراجویی در ژاپن دوره فئودال؛ دو شخصیت با سبک‌های متفاوت، محیط‌های فصلی، مخفی‌کاری، مبارزه و اکتشاف.","story":"داستان Naoe، شینوبی، و Yasuke، سامورایی، در دوره آشوب ژاپن دنبال می‌شود؛ مسیرهای شخصیتی و مأموریت‌ها با نقش‌های متفاوت پیش می‌روند.","gameplay":"مخفی‌کاری، نفوذ، استفاده از ابزار شینوبی، مبارزه مستقیم، سلاح‌های سامورایی، اکتشاف و مأموریت‌های جهان‌باز.","features":"دو شخصیت قابل بازی؛ چرخه فصل‌ها و آب‌وهوا؛ پایگاه قابل توسعه؛ مخفی‌کاری و مبارزه؛ ژاپن تاریخی.","modes":"کمپین تک‌نفره؛ فعالیت‌های جهان‌باز و مأموریت‌های جانبی.","platforms":"PC، PS5، Xbox Series X|S؛ نسخه‌ها/ویژگی‌ها را بررسی کنید.","requirements":"سیستم PC به تنظیمات و نسخه وابسته است؛ مشخصات رسمی و حجم نصب را از فروشگاه بررسی کنید.","fps":[["PC","1080p با تنظیمات Medium/High","متغیر","بسته به سیستم؛ عدد تضمینی نیست"],["PS5","Performance/Quality","متغیر","حالت‌های گرافیکی بسته به نسخه"],["Xbox Series X","Performance/Quality","متغیر","حالت‌های گرافیکی بسته به نسخه"],["Xbox Series S","حالت‌های کنسولی","متغیر","برای بنچمارک دقیق به بررسی مستقل مراجعه کنید"]]},{"id":8,"name":"EA SPORTS FC 26","genre":"فوتبال، ورزشی","year":"۲۰۲۵","studio":"EA Sports","size":"حدود ۵۰ تا ۸۰ گیگ؛ وابسته به نسخه","emoji":"⚽","c1":"#2a805d","c2":"#101e1c","desc":"شبیه‌ساز فوتبال با باشگاه‌ها، لیگ‌ها، بازیکنان، مسابقات و حالت‌های مختلف. تمرکز روی ساخت تیم، تاکتیک، مسابقات آفلاین و آنلاین.","story":"بخش داستانی خطی ندارد؛ پیشرفت بازیکن و تیم در Career و ساخت/مدیریت تیم در Ultimate Team انجام می‌شود.","gameplay":"پاس، دریبل، شوت، دفاع، تاکتیک و تنظیم ترکیب؛ مسابقات کوتاه و رقابتی با کنترل بازیکنان.","features":"Career Mode؛ Ultimate Team؛ Clubs؛ مسابقات دوستانه؛ ترکیب‌ها و تاکتیک‌ها؛ محتوا و رویدادهای فصلی.","modes":"Career؛ Ultimate Team؛ Clubs؛ Kick-Off و حالت‌های آنلاین/آفلاین بسته به نسخه.","platforms":"PC، PS5، Xbox Series X|S و برخی کنسول‌های نسل قبلی؛ قابلیت‌ها ممکن است تفاوت داشته باشند.","requirements":"حجم و حداقل سیستم PC بسته به پلتفرم و آپدیت متغیر است؛ قبل از نصب بررسی شود.","fps":[["PC","1080p High","60–144 (بسته به سیستم)","فریم‌ریت قابل تنظیم و وابسته به سخت‌افزار"],["PS5","حالت معمول","60 هدف عملکرد","بسته به حالت/نمایشگر"],["Xbox Series X","حالت معمول","60 هدف عملکرد","بسته به حالت/نمایشگر"],["Xbox Series S","حالت معمول","60 هدف عملکرد","بسته به نسخه"]]},{"id":7,"name":"Call of Duty: Warzone","genre":"بتل رویال، شوتر","year":"۲۰۲۲؛ به‌روزرسانی مداوم","studio":"Activision","size":"متغیر و قابل تغییر با بسته‌های نصب","emoji":"🎯","c1":"#697a80","c2":"#151a26","desc":"بتل‌رویال آنلاین که بازیکنان در نقشه فرود می‌آیند، تجهیزات پیدا می‌کنند و برای بقا و پیروزی با تیم‌های دیگر رقابت می‌کنند. نقشه‌ها و محتوای آن با فصل‌ها تغییر می‌کنند.","story":"خط داستانی مستقل و ثابت ندارد؛ روایت و رویدادها از طریق فصل‌ها، مأموریت‌ها و محتوای زنده پیش می‌روند.","gameplay":"فرود، لوت، درگیری با تیم‌ها، تکمیل قراردادها، مدیریت تجهیزات، بازگشت از Gulag در نسخه‌هایی که این مکانیک فعال است و بقا تا پایان مسابقه.","features":"بتل‌رویال؛ تیمی و انفرادی بسته به Playlist؛ تجهیزات؛ قراردادها؛ رویدادهای فصلی؛ نقشه‌ها و تغییرات دوره‌ای.","modes":"Playlistهای مختلف بتل‌رویال و مودهای محدود زمانی؛ فهرست فعال در هر فصل تغییر می‌کند.","platforms":"PC، PlayStation و Xbox؛ نسل‌ها و نسخه‌های پشتیبانی‌شده را برای نصب فعلی بررسی کنید.","requirements":"حجم نصب به بسته‌ها و آپدیت‌ها بستگی دارد؛ فضای خالی زیاد و اتصال اینترنت لازم است.","fps":[["PC","1080p Competitive","70–140 (تخمینی)","بسته به CPU/GPU و تنظیمات"],["PS5","Performance","60–120 (هدف/بسته به نمایشگر)","نسخه و حالت بازی مؤثر است"],["Xbox Series X","Performance","60–120 (هدف/بسته به نمایشگر)","نسخه و حالت بازی مؤثر است"],["Xbox Series S","Performance","متغیر؛ هدف تا 120 در حالت‌های پشتیبانی‌شده","به حالت و نمایشگر وابسته"]]},{"id":9,"name":"Hogwarts Legacy","genre":"اکشن RPG، فانتزی","year":"۲۰۲۳","studio":"Avalanche Software","size":"حدود ۷۰ تا ۹۰ گیگ","emoji":"🪄","c1":"#6547a5","c2":"#17102a","desc":"در دنیای جادویی هاگوارتز در قرن نوزدهم، دانش‌آموزی با توانایی جادوی باستانی هستی. قلعه، روستاها و مناطق اطراف را کاوش می‌کنی و رازهای جادویی را کشف می‌کنی.","story":"شخصیت سفارشی در سال‌های پایانی تحصیل وارد هاگوارتز می‌شود و با راز باستانی و تهدیدی بزرگ روبه‌رو می‌شود. انتخاب‌ها و مأموریت‌های شخصیت‌ها مسیر ماجرا را شکل می‌دهند.","gameplay":"کلاس‌های جادو؛ ترکیب طلسم‌ها؛ مبارزه؛ ساخت معجون؛ جمع‌آوری تجهیزات؛ پرواز؛ حل معما؛ کاوش و مأموریت‌های جانبی.","features":"چهار خانه هاگوارتز؛ قلعه و محیط‌های گسترده؛ جادوهای قابل ارتقا؛ جانوران؛ Room of Requirement؛ پرواز با جارو.","modes":"تجربه تک‌نفره داستانی؛ حالت آنلاین چندنفره ندارد.","platforms":"PC، PS5، Xbox Series X|S و نسخه‌های نسل قبل؛ قابلیت‌ها بسته به نسخه تفاوت دارند.","requirements":"نسخه PC نیازمند سخت‌افزار نسبتاً مناسب است؛ فضای نصب و سیستم پیشنهادی را پیش از خرید بررسی کنید.","fps":[["PC","1080p Medium/High","45–75 تخمینی","بدون Ray Tracing؛ وابسته به GPU"],["PS5","Performance","60 هدف عملکرد","Quality معمولاً 30؛ وابسته به حالت"],["Xbox Series X","Performance","60 هدف عملکرد","Quality معمولاً 30؛ وابسته به حالت"],["Xbox Series S","Performance","30–60 تخمینی","بسته به صحنه و حالت"]]},{"id":5,"name":"Cyberpunk 2077","genre":"RPG، جهان‌باز، سایبرپانک","year":"۲۰۲۰؛ نسخه 2.x","studio":"CD Projekt Red","size":"حدود ۷۰ تا ۱۰۰ گیگ؛ بسته به نسخه","emoji":"🌆","c1":"#bd9b20","c2":"#291a3d","desc":"در Night City، کلان‌شهری آینده‌نگر، نقش V را بازی می‌کنی. داستان، انتخاب‌ها، شخصیت‌سازی و مأموریت‌ها در دنیایی با فناوری پیشرفته، شرکت‌های بزرگ و خیابان‌های خطرناک جریان دارد.","story":"V به دنبال راهی برای نجات خود پس از یک سرقت پرخطر است. شخصیت‌ها، تصمیم‌ها و روابط در مأموریت‌های اصلی و فرعی، پایان‌های مختلف را شکل می‌دهند.","gameplay":"شوتر و مبارزه نزدیک؛ مخفی‌کاری؛ هک؛ ارتقای بدن؛ مهارت‌های مختلف؛ رانندگی؛ تجهیزات و انتخاب مسیر مأموریت.","features":"Night City و Badlands؛ ساخت شخصیت؛ cyberware؛ چند سبک مبارزه؛ خودروها؛ مأموریت‌های جانبی؛ بسته Phantom Liberty (جداگانه).","modes":"تک‌نفره داستانی؛ تجربه آنلاین چندنفره رسمی ندارد.","platforms":"PC، PS5، Xbox Series X|S؛ نسخه‌های نسل قبل با تفاوت‌های فنی.","requirements":"نسخه 2.x روی PC به SSD و سخت‌افزار مناسب نیاز دارد؛ Ray Tracing سنگین است و فضای نصب بسته به DLC متغیر.","fps":[["PC Mid-range","1080p Medium/High؛ بدون RT","40–75 تخمینی","وابسته به کارت و DLSS/FSR"],["PS5","Performance","60 هدف عملکرد","RT Mode معمولاً هدف 30"],["Xbox Series X","Performance","60 هدف عملکرد","Quality/RT بسته به حالت"],["Xbox Series S","Performance","متغیر؛ حدود 30–60","تنظیمات و نسخه مؤثر است"]]},{"id":6,"name":"Elden Ring","genre":"اکشن RPG، فانتزی تاریک","year":"۲۰۲۲","studio":"FromSoftware","size":"حدود ۴۵ تا ۶۰ گیگ","emoji":"🗡️","c1":"#776439","c2":"#171526","desc":"در Lands Between به دنبال Elden Ring می‌گردی. جهان وسیع، سیاه‌چال‌ها، شخصیت‌های اسرارآمیز و باس‌های سخت، یک تجربه فانتزی تاریک را شکل می‌دهند.","story":"شخصیت Tarnished به سرزمین Lands Between می‌رسد و با شکست نیمه‌خدایان و جمع‌آوری Great Runes مسیر تبدیل‌شدن به Elden Lord را دنبال می‌کند. روایت عمدتاً از گفتگوها، آیتم‌ها و محیط کشف می‌شود.","gameplay":"مبارزه مبتنی بر استقامت؛ سلاح و جادو؛ دفاع، جاخالی و Parry؛ ساخت Build؛ کاوش؛ باس‌فایت؛ احضار Spirit Ashes.","features":"جهان‌باز؛ کلاس‌های شروع؛ سلاح‌های فراوان؛ ساخت Build؛ Spirit Ash؛ سیاه‌چال؛ باس‌های اختیاری؛ بسته Shadow of the Erdtree جداگانه.","modes":"تک‌نفره؛ همکاری آنلاین و PvP در حالت‌های مخصوص؛ تنظیمات آنلاین و احضار.","platforms":"PC، PS4، PS5، Xbox One و Xbox Series X|S.","requirements":"PC: حداقل 12GB RAM و کارت گرافیک میان‌رده قدیمی‌تر؛ سیستم دقیق نسخه Steam را بررسی کنید. SSD برای تجربه بهتر توصیه می‌شود.","fps":[["PC","1080p High","45–60 تخمینی","سقف فریم معمول 60؛ وابسته به سیستم"],["PS5","Performance","نزدیک 60، متغیر","بسته به صحنه؛ نوسان دارد"],["Xbox Series X","Performance","نزدیک 60، متغیر","بسته به صحنه؛ نوسان دارد"],["Xbox Series S","Performance","حدود 45–60 متغیر","به صحنه و نسخه وابسته"]]},{"id":10,"name":"The Witcher 3: Wild Hunt","genre":"RPG، جهان‌باز، فانتزی","year":"۲۰۱۵؛ نسخه نسل جدید","studio":"CD Projekt Red","size":"حدود ۵۰ تا ۷۰ گیگ","emoji":"🐺","c1":"#815147","c2":"#19121f","desc":"در نقش Geralt of Rivia، شکارچی هیولا، در قاره‌ای جنگ‌زده و فانتزی به دنبال Ciri می‌گردی. انتخاب‌ها، قراردادهای هیولا، شهرها و داستان‌های شخصیت‌ها در جهان بزرگ بازی قرار دارند.","story":"Geralt برای پیدا کردن Ciri و مقابله با Wild Hunt وارد سفر می‌شود. تصمیم‌های بازیکن در مأموریت‌ها و روابط می‌توانند نتیجه داستان و پایان را تغییر دهند.","gameplay":"شمشیرهای فولادی و نقره‌ای؛ نشانه‌های جادویی؛ معجون و روغن؛ شکار هیولا؛ قراردادها؛ اسب‌سواری؛ گفتگو و انتخاب؛ ارتقای مهارت.","features":"جهان‌باز؛ داستان و مأموریت‌های جانبی؛ Gwent؛ قرارداد هیولا؛ DLCهای Hearts of Stone و Blood and Wine؛ نسخه نسل جدید.","modes":"تک‌نفره داستانی؛ بازی چندنفره ندارد.","platforms":"PC، PS4/PS5، Xbox One/Series و Switch؛ نسخه و قابلیت‌ها متفاوت.","requirements":"نسخه نسل جدید PC برای کیفیت بالا و Ray Tracing به سخت‌افزار قدرتمند نیاز دارد؛ نسخه کلاسیک سبک‌تر است.","fps":[["PC","1080p High، بدون RT","60–100 تخمینی","وابسته به سخت‌افزار و نسخه"],["PS5","Performance","60 هدف عملکرد","Quality معمولاً 30"],["Xbox Series X","Performance","60 هدف عملکرد","Quality معمولاً 30"],["Xbox Series S","Performance","40–60 متغیر","وابسته به حالت/نسخه"]]},{"id":1,"name":"GTA V","genre":"اکشن، جهان‌باز","year":"۲۰۱۳","studio":"Rockstar Games","size":"حدود ۹۰ تا ۱۱۰ گیگ؛ نسخه متغیر","emoji":"🚗","c1":"#6434a8","c2":"#16112c","desc":"در Los Santos و اطراف آن، سه شخصیت Michael، Franklin و Trevor در ماجراهای جنایی، سرقت، تعقیب و زندگی شهری درگیر می‌شوند. شهر و مناطق طبیعی برای فعالیت‌های آزاد طراحی شده‌اند.","story":"سه شخصیت با پیشینه‌های متفاوت برای سرقت‌ها و اهداف شخصی همکاری می‌کنند. روایت با جابه‌جایی بین شخصیت‌ها، مأموریت‌های اصلی و تصمیم‌های جنایی پیش می‌رود.","gameplay":"رانندگی، تیراندازی، سرقت، پرواز، تعویض شخصیت، مأموریت‌های داستانی، فعالیت‌های جانبی و گشت آزاد.","features":"Los Santos؛ سه شخصیت قابل بازی؛ مأموریت‌های Heist؛ وسایل نقلیه متنوع؛ فعالیت‌های جانبی؛ GTA Online جدا از داستان.","modes":"Story Mode تک‌نفره و GTA Online چندنفره (بخش آنلاین جداگانه).","platforms":"PC، PS4، PS5، Xbox One، Xbox Series X|S؛ نسخه‌های قدیمی‌تر نیز وجود دارند.","requirements":"PC: حداقل/پیشنهادی بسته به نسخه؛ حجم نصب و آپدیت متفاوت است. SSD برای نسخه جدید و لود سریع‌تر مفید است.","fps":[["PC Mid-range","1080p High","60–120 تخمینی","به GPU/CPU و تنظیمات وابسته"],["PS5","حالت Quality/Performance","30 / 60","بسته به نسخه و حالت"],["Xbox Series X","حالت Quality/Performance","30 / 60","بسته به نسخه و حالت"],["Xbox Series S","رزولوشن متغیر","30 / 60","بسته به نسخه و حالت"]]},{"id":2,"name":"Red Dead Redemption 2","genre":"اکشن، جهان‌باز، وسترن","year":"۲۰۱۸","studio":"Rockstar Games","size":"حدود ۱۲۰ تا ۱۵۰ گیگ","emoji":"🤠","c1":"#8e482a","c2":"#21110e","desc":"در غرب وحشی سال ۱۸۹۹، Arthur Morgan و گروه Van der Linde با تغییرات عصر جدید، تعقیب قانون و مشکلات درونی گروه دست‌وپنجه نرم می‌کنند. جهان بازی پر از شهر، جنگل، کوه، حیوانات و فعالیت‌های جانبی است.","story":"Arthur Morgan، عضو گروه Van der Linde، میان وفاداری به گروه، بقا و انتخاب‌های اخلاقی قرار می‌گیرد. روایت سینمایی و شخصیت‌پردازی بخش مرکزی بازی است.","gameplay":"اسب‌سواری؛ تیراندازی؛ شکار و ماهیگیری؛ سرقت؛ کمپ؛ تعامل با NPC؛ ارتقای تجهیزات؛ مأموریت‌های اصلی و جانبی؛ اکتشاف آزاد.","features":"جهان باز دقیق؛ چرخه آب‌وهوا؛ حیوانات؛ سیستم Honor؛ کمپ؛ Dead Eye؛ داستان طولانی؛ Red Dead Online.","modes":"داستان تک‌نفره و Red Dead Online.","platforms":"PC، PS4، Xbox One؛ روی PS5 و Xbox Series از طریق سازگاری نسل قبل.","requirements":"PC: حدود ۸GB RAM حداقل و GPU متناسب با تنظیمات؛ فضای زیاد لازم است. تنظیمات Ultra بسیار سنگین است.","fps":[["PC Mid-range","1080p High","45–75 تخمینی","به کارت گرافیک و تنظیمات وابسته"],["PS5","نسخه سازگار PS4","30","حالت 60 رسمی در نسخه سازگار گزارش نشده"],["Xbox Series X","نسخه سازگار One X","30","اجرای سازگار؛ حالت 60 رسمی گزارش نشده"],["Xbox Series S","نسخه سازگار One S","30","اجرای سازگار"]]},{"id":4,"name":"Minecraft","genre":"سندباکس، بقا، ساخت","year":"۲۰۱۱؛ به‌روزرسانی فعال","studio":"Mojang Studios","size":"کم تا متوسط؛ دنیاها و مودها حجم را تغییر می‌دهند","emoji":"⛏️","c1":"#347b49","c2":"#152c1e","desc":"یک جهان بلوکی و تقریباً بی‌پایان برای ساخت، کاوش، جمع‌آوری منابع، مبارزه و بقا. می‌توان در Creative آزادانه ساخت یا در Survival با خطرها روبه‌رو شد.","story":"داستان خطی اجباری ندارد؛ بازیکن مسیر خود را می‌سازد. پیشروی اختیاری شامل کشف Nether، جمع‌آوری منابع و رسیدن به End و شکست Ender Dragon است.","gameplay":"شکستن و قرار دادن بلوک؛ ساخت خانه و سازه؛ استخراج؛ کشاورزی؛ ساخت ابزار؛ مبارزه؛ Redstone؛ اکتشاف؛ Crafting.","features":"Creative و Survival؛ Nether و End؛ Redstone؛ مودها و Resource Packs روی برخی نسخه‌ها؛ ساخت آزاد؛ بازی با دوستان.","modes":"Single-player؛ Multiplayer؛ سرورها؛ Creative؛ Survival؛ Adventure و Spectator بسته به Edition.","platforms":"PC، Xbox، PlayStation، Switch، موبایل؛ Bedrock و Java با تفاوت‌های نسخه.","requirements":"نسخه Vanilla سبک است؛ Shader، مودهای سنگین، فاصله دید بالا و بسته‌های HD می‌توانند سیستم را بسیار سنگین کنند.","fps":[["PC بدون Shader","1080p، Vanilla","60–200+ متغیر","به CPU، render distance و مودها وابسته"],["PS5","نسخه کنسولی","60 هدف معمول","به Edition و تنظیمات وابسته"],["Xbox Series X","نسخه کنسولی","60 هدف معمول","به Edition و تنظیمات وابسته"],["Xbox Series S","نسخه کنسولی","60 هدف معمول","به Edition و تنظیمات وابسته"]]},{"id":3,"name":"Forza Horizon 5","genre":"مسابقه‌ای، جهان‌باز","year":"۲۰۲۱","studio":"Playground Games","size":"حدود ۱۰۰ تا ۱۵۰ گیگ","emoji":"🏎️","c1":"#167a99","c2":"#201344","desc":"فستیوال Horizon در مکزیک؛ از جنگل و ساحل تا بیابان و شهر. صدها خودرو و رویدادهای مسابقه‌ای، گشت آزاد و فعالیت‌های آنلاین.","story":"بازیکن وارد فستیوال Horizon می‌شود و با تکمیل مسابقات، نمایش‌ها و رویدادها به چهره مطرح فستیوال تبدیل می‌شود. روایت سبک و جشن‌محور است.","gameplay":"مسابقات جاده‌ای، Dirt، Cross Country، دریفت، سرعت؛ تنظیم و تیونینگ خودرو؛ گشت آزاد؛ ساخت مسابقه و چالش.","features":"نقشه بزرگ مکزیک؛ صدها خودرو؛ EventLab؛ رویدادهای فصلی؛ مسابقات آنلاین؛ تنظیمات رانندگی؛ عکس‌برداری.","modes":"کمپین/پیشروی فستیوال؛ مسابقات آزاد؛ رویدادهای آنلاین؛ Horizon Arcade و حالت‌های متغیر.","platforms":"PC، Xbox One، Xbox Series X|S، PS5؛ نسخه‌ها از نظر تنظیمات تفاوت دارند.","requirements":"PC با تنظیمات High/Ultra به GPU مناسب نیاز دارد؛ SSD و فضای نصب بالا توصیه می‌شود.","fps":[["PC Mid-range","1080p High","60–120 تخمینی","به GPU و تنظیمات وابسته"],["PS5","Performance/Quality","60 / 30 هدف","بسته به حالت"],["Xbox Series X","Performance/Quality","60 / 30 هدف","بسته به حالت"],["Xbox Series S","Performance/Quality","60 / 30 هدف","بسته به حالت"]]},{"id":20,"name":"ASTRO BOT","genre":"پلتفرمر، ماجراجویی","year":"۲۰۲۴","studio":"Team ASOBI / PlayStation Studios","size":"حجم وابسته به نسخه و آپدیت","emoji":"🤖","c1":"#2776c7","c2":"#15254c","desc":"یک ماجراجویی پلتفرمر سه‌بعدی که Astro را در سفر میان دنیاهای رنگارنگ همراهی می‌کند. طراحی مراحل بر پرش، اکتشاف، توانایی‌های ویژه و پیدا کردن ربات‌های گمشده تمرکز دارد.","story":"پس از پراکنده‌شدن خدمه رباتی، Astro باید در سیاره‌ها و محیط‌های گوناگون دوستانش را پیدا کند و قطعات لازم برای بازسازی سفینه را جمع‌آوری کند.","gameplay":"حرکت و پرش دقیق، استفاده از توانایی‌های ویژه، کشف مسیرهای مخفی، مبارزه سبک با دشمنان فانتزی و عبور از چالش‌های سکوبازی.","features":"مراحل متنوع؛ توانایی‌های ویژه؛ ربات‌های قابل نجات؛ ارجاع‌های فراوان به تاریخ PlayStation؛ استفاده از قابلیت‌های کنترلر DualSense.","modes":"تجربه تک‌نفره؛ تمرکز بر کمپین و جمع‌آوری آیتم‌ها و رازهای مراحل.","platforms":"PlayStation 5؛ نسخه PC یا Xbox در اطلاعات رسمی این پرونده ثبت نشده است.","requirements":"نسخه کنسولی؛ حجم و فضای نصب با آپدیت‌ها ممکن است تغییر کند.","fps":[["PS5","حالت گرافیکی مخصوص کنسول","۶۰ هدف عملکرد","جزئیات دقیق به نسخه و صحنه وابسته است"]],"psExclusive":true},{"id":21,"name":"Demon’s Souls (Remake)","genre":"اکشن RPG، فانتزی تاریک","year":"۲۰۲۰","studio":"Bluepoint Games / PlayStation Studios","size":"حجم نصب وابسته به نسخه","emoji":"🛡️","c1":"#777d91","c2":"#191b2b","desc":"بازسازی نسخه کلاسیک Demon’s Souls با جلوه‌های بصری نسل جدید. بازیکن وارد سرزمین Boletaria می‌شود؛ جایی که مه مرموز و موجودات خطرناک آن را فرا گرفته‌اند.","story":"قهرمان بی‌نام برای مقابله با شیطان کهن و پادشاهی گرفتار نفرین به Boletaria سفر می‌کند. روایت از محیط‌ها، شخصیت‌ها و توضیحات آیتم‌ها شکل می‌گیرد.","gameplay":"اکشن نقش‌آفرینی با مبارزه زمان‌بندی‌شده، مدیریت استقامت، انتخاب سلاح و زره، جادو، کاوش و نبرد با باس‌ها.","features":"بازسازی بصری؛ پنج Archstone اصلی؛ طراحی باس‌ها؛ سیستم World Tendency؛ انتخاب کلاس شروع و ساخت سبک مبارزه.","modes":"کمپین تک‌نفره همراه با قابلیت‌های آنلاین همکاری و رقابت در صورت اتصال به سرویس‌های مربوط.","platforms":"PlayStation 5؛ نسخه PC به‌صورت رسمی در این پرونده تأیید نشده است.","requirements":"نسخه PS5؛ حجم دقیق نصب ممکن است با به‌روزرسانی‌ها تغییر کند.","fps":[["PS5","Performance / Cinematic","۶۰ / ۳۰ هدف","بسته به حالت انتخابی"]],"psExclusive":true},{"id":22,"name":"Bloodborne","genre":"اکشن RPG، ترسناک، فانتزی تاریک","year":"۲۰۱۵","studio":"FromSoftware / Japan Studio","size":"حجم وابسته به نسخه","emoji":"🩸","c1":"#8a3447","c2":"#1b101b","desc":"یک اکشن نقش‌آفرینی سریع در شهر گوتیک Yharnam؛ شهری گرفتار بیماری و رازهای کیهانی. اکتشاف، مبارزه تهاجمی و کشف تدریجی داستان هویت اصلی بازی را می‌سازند.","story":"شکارچی وارد Yharnam می‌شود تا در شب شکار، راز بیماری و آیین‌های شهر را کشف کند. بخش بزرگی از روایت از محیط، گفت‌وگوها و توضیحات آیتم‌ها فهمیده می‌شود.","gameplay":"مبارزه نزدیک و سریع، سلاح‌های تبدیل‌شونده، اسلحه‌های کمکی در چارچوب بازی، جاخالی، Parry و کاوش مسیرهای به‌هم‌پیوسته.","features":"طراحی گوتیک؛ سلاح‌های Trick Weapon؛ سیستم Rally برای بازپس‌گیری بخشی از سلامتی ازدست‌رفته؛ باس‌های چالش‌برانگیز؛ بسته The Old Hunters.","modes":"کمپین تک‌نفره و قابلیت‌های آنلاین همکاری/رقابت در نسخه پشتیبانی‌شده.","platforms":"PlayStation 4؛ روی PS5 از طریق سازگاری نسل قبل اجرا می‌شود. نسخه PC رسمی در این پرونده تأیید نشده است.","requirements":"نسخه کنسولی؛ عملکرد و زمان بارگذاری به سخت‌افزار و نسخه وابسته است.","fps":[["PS4 / PS5 سازگار","نسخه اصلی با نرخ فریم پایه","حدود ۳۰ هدف","قفل/عملکرد رسمی نسخه اصلی؛ نسخه ارتقایافته رسمی در این پرونده تأیید نشده"]],"psExclusive":true},{"id":23,"name":"Gran Turismo 7","genre":"شبیه‌ساز رانندگی، مسابقه‌ای","year":"۲۰۲۲","studio":"Polyphony Digital / PlayStation Studios","size":"حجم بالا؛ با آپدیت‌ها متغیر","emoji":"🏎️","c1":"#3472a9","c2":"#151d35","desc":"شبیه‌ساز رانندگی با تمرکز بر خودروهای واقعی، پیست‌های مسابقه، تنظیمات فنی و پیشرفت در مجموعه‌ای از رویدادها. بازی میان رانندگی رقابتی و علاقه به فرهنگ خودرو تعادل ایجاد می‌کند.","story":"ساختار پیشرفت از طریق GT Café و منوهای جمع‌آوری خودرو پیش می‌رود؛ هدف، آشنایی با کلاس‌ها و تاریخچه خودروها و بازکردن رویدادهای بیشتر است.","gameplay":"مسابقه در پیست، تنظیم خودرو، انتخاب تایر و قطعات، تمرین، دریافت گواهینامه‌ها و رقابت آنلاین.","features":"خودروهای دارای مجوز؛ پیست‌های واقعی و خیالی؛ تنظیمات گسترده؛ حالت Scapes برای عکاسی؛ تغییرات آب‌وهوا و شرایط مسیر در رویدادهای پشتیبانی‌شده.","modes":"کمپین و رویدادهای تک‌نفره؛ Sport Mode و مسابقات آنلاین؛ برخی قابلیت‌ها به اتصال اینترنت نیاز دارند.","platforms":"PlayStation 4 و PlayStation 5؛ نسخه PC یا Xbox در این پرونده تأیید نشده است.","requirements":"نسخه کنسولی؛ فضای نصب به‌روزرسانی‌ها و داده‌های اضافی وابسته است.","fps":[["PS5","حالت عملکرد/کیفیت","تا ۶۰ هدف","بسته به حالت و شرایط مسابقه؛ VR نیازمند تجهیزات سازگار است"],["PS4","نسخه نسل قبل","تا ۶۰ هدف","جزئیات بصری و عملکرد با PS5 متفاوت است"]],"psExclusive":true},{"id":24,"name":"Ghost of Yōtei","genre":"اکشن ماجراجویی، جهان‌باز","year":"۲۰۲۵","studio":"Sucker Punch Productions / PlayStation Studios","size":"حجم نصب وابسته به نسخه","emoji":"⛩️","c1":"#9b644d","c2":"#211a2d","desc":"ماجراجویی جهان‌باز در ژاپنِ شمالی با محوریت شخصیت Atsu. محیط‌های طبیعی، روستاها، کوهستان‌ها و سفر شخصی قهرمان، فضای اصلی تجربه را می‌سازند.","story":"Atsu در سرزمین اطراف کوه Yōtei به دنبال پاسخ و عدالت است. روایت بر گذشته او، برخورد با گروه‌های مختلف و مسیر شخصی‌اش تمرکز دارد.","gameplay":"اکتشاف جهان‌باز، مبارزه سوم‌شخص، استفاده از سبک‌ها و ابزارهای مختلف در بازی، مأموریت‌های داستانی و فعالیت‌های محیطی.","features":"مناظر شمال ژاپن؛ چرخه محیطی و آب‌وهوا؛ فعالیت‌های جانبی؛ عکاسی؛ مبارزه و اکتشاف آزاد.","modes":"تجربه داستانی تک‌نفره؛ هر حالت اضافه باید بر اساس اعلام رسمی و به‌روزرسانی‌ها بررسی شود.","platforms":"PlayStation 5؛ وضعیت نسخه‌های دیگر در این پرونده تأیید نشده است.","requirements":"نسخه PS5؛ فضای نصب و جزئیات فنی ممکن است با آپدیت‌ها تغییر کند.","fps":[["PS5","حالت‌های گرافیکی نسخه","هدف عملکرد وابسته به حالت","برای اعداد دقیق به آزمون نسخه و تنظیمات مشخص نیاز است"]],"psExclusive":true},{"id":25,"name":"Marvel’s Wolverine","genre":"اکشن ماجراجویی","year":"۲۰۲۶","studio":"Insomniac Games / PlayStation Studios","size":"حجم رسمی در این پرونده درج نشده","emoji":"🐺","c1":"#8d3434","c2":"#1c1820","desc":"ماجراجویی اکشن با محوریت Wolverine و گذشته پیچیده او. مبارزه نزدیک، پنجه‌های آدامانتیومی و جست‌وجوی پاسخ درباره هویت و خاطرات شخصیت، عناصر مرکزی معرفی بازی‌اند.","story":"Wolverine در جست‌وجوی پاسخ درباره گذشته خود وارد ماجرایی پرتنش می‌شود. جزئیات کامل داستان و شخصیت‌های همراه باید مطابق نسخه عرضه‌شده تکمیل شوند.","gameplay":"اکشن سوم‌شخص و مبارزه نزدیک؛ استفاده از توانایی‌های شناخته‌شده شخصیت، حرکت در محیط و رویارویی با دشمنان.","features":"شخصیت‌محوری؛ مبارزه سریع؛ روایت سینمایی؛ جهان و مکان‌های متنوع؛ توسعه توسط Insomniac Games.","modes":"تمرکز بر تجربه تک‌نفره داستانی؛ حالت‌های دیگر فقط در صورت اعلام رسمی اضافه می‌شوند.","platforms":"PlayStation 5؛ نسخه PC یا Xbox در این پرونده تأیید نشده است.","requirements":"نسخه کنسولی؛ حجم نهایی و مشخصات فنی باید از اطلاعات رسمی نسخه عرضه‌شده بررسی شوند.","fps":[["PS5","حالت‌ها و رزولوشن نهایی را بررسی کنید","نامشخص","عدد قابل استناد در این پرونده درج نشده است"]],"psExclusive":true},{"id":26,"name":"God of War: Sons of Sparta","genre":"اکشن، ماجراجویی","year":"۲۰۲۶","studio":"Mega Cat Studios / Santa Monica Studio","size":"حجم نصب وابسته به نسخه","emoji":"⚔️","c1":"#936b4e","c2":"#251b2a","desc":"روایتی تازه از سال‌های آموزش اسپارتی Kratos در کنار برادرش Deimos؛ اثری که به دوره‌ای کمتر روایت‌شده از گذشته این شخصیت می‌پردازد.","story":"داستان در سال‌های جوانی Kratos و Deimos جریان دارد و رابطه دو برادر و آموزش سخت اسپارتی آن‌ها را دنبال می‌کند.","gameplay":"ماجراجویی اکشن با ساختار مرحله‌ای؛ اکتشاف، مبارزه و پیشروی در محیط‌های الهام‌گرفته از اسطوره و آموزش اسپارتی.","features":"بخش کمتر دیده‌شده از گذشته Kratos؛ تمرکز بر رابطه برادران؛ طراحی هنری و ساختار متفاوت نسبت به بازی‌های سه‌بعدی اصلی مجموعه.","modes":"تجربه تک‌نفره داستانی؛ جزئیات حالت‌های اضافه باید با نسخه نهایی تطبیق داده شود.","platforms":"PlayStation؛ جزئیات دقیق پلتفرم و نسخه در صفحه رسمی بازی بررسی شود.","requirements":"مشخصات نصب و جزئیات فنی به نسخه پلتفرم وابسته است.","fps":[["PlayStation","عملکرد وابسته به نسخه","نامشخص","اطلاعات عددی معتبر در این پرونده ثبت نشده است"]],"psExclusive":true},{"id":27,"name":"Horizon Call of the Mountain","genre":"ماجراجویی، واقعیت مجازی","year":"۲۰۲۳","studio":"Firesprite / Guerrilla Games","size":"حجم وابسته به نسخه","emoji":"🏹","c1":"#4d9a9b","c2":"#17263a","desc":"تجربه‌ای واقعیت مجازی در جهان Horizon که برای هدست PS VR2 طراحی شده است. بازیکن در نقش Ryas از محیط‌های طبیعی عبور می‌کند، صعود می‌کند و با ماشین‌ها روبه‌رو می‌شود.","story":"Ryas، جنگجوی سابق Carja، برای جبران گذشته خود مأموریتی را می‌پذیرد و در مسیرش با شخصیت‌ها و رازهای جهان Horizon روبه‌رو می‌شود.","gameplay":"حرکت و صعود در محیط VR، استفاده از کمان، حل چالش‌های محیطی و تعامل مستقیم با جهان از طریق کنترلرهای واقعیت مجازی.","features":"طراحی اختصاصی برای PS VR2؛ چشم‌اندازهای جهان Horizon؛ صعود و اکتشاف؛ مواجهه با ماشین‌های بزرگ؛ تجربه اول‌شخص واقعیت مجازی.","modes":"تجربه تک‌نفره واقعیت مجازی.","platforms":"PlayStation 5 همراه با هدست PlayStation VR2؛ نسخه PC یا Xbox در این پرونده تأیید نشده است.","requirements":"برای تجربه به PS5 و هدست PS VR2 سازگار نیاز است.","fps":[["PS5 + PS VR2","نمایشگر واقعیت مجازی","هدف وابسته به حالت VR","برای نرخ دقیق به مشخصات رسمی هدست و نسخه بازی مراجعه شود"]],"psExclusive":true}];/*NEXOR_GAMES_END*/
+// NEXOR admin panel: browser-local persistence plus exportable standalone HTML.
+const NEXOR_DEFAULT_GAMES = JSON.parse(JSON.stringify(games));
+try { const saved = localStorage.getItem('nexor_admin_games_v1'); if (saved) { const parsed=JSON.parse(saved); if(Array.isArray(parsed)) games.splice(0,games.length,...parsed); } } catch(e) { console.warn('NEXOR local data could not be loaded',e); }
+function adminStatus(msg){const el=document.getElementById('adminStatus');if(el)el.textContent=msg;}
+let adminUnlocked=false;
+const ADMIN_AUTH_KEY='nexor_admin_auth_v1';
+function setAdminAuthView(isSetup){
+ const gate=document.getElementById('adminAuthGate');
+ const workspace=document.getElementById('adminWorkspace');
+ gate.hidden=false;workspace.hidden=true;
+ document.getElementById('adminAuthTitle').textContent=isSetup?'ساخت رمز عبور مدیریت':'ورود به مدیریت NEXOR';
+ document.getElementById('adminAuthDescription').textContent=isSetup?'برای اولین استفاده، یک رمز عبور حداقل ۸ نویسه‌ای بساز. آن را در جای امن نگه دار.':'رمز عبور مدیریت را وارد کن.';
+ document.getElementById('adminPasswordConfirmWrap').hidden=!isSetup;
+ document.getElementById('adminAuthAction').textContent=isSetup?'ساخت رمز و ورود':'ورود';
+ document.getElementById('adminPasswordInput').value='';
+ document.getElementById('adminPasswordConfirm').value='';
+ document.getElementById('adminAuthMessage').textContent='';
+ document.getElementById('adminPasswordInput').autocomplete=isSetup?'new-password':'current-password';
+}
+function bytesToHex(buffer){return Array.from(new Uint8Array(buffer)).map(b=>b.toString(16).padStart(2,'0')).join('');}
+function randomSalt(length=16){const bytes=new Uint8Array(length);crypto.getRandomValues(bytes);return bytes;}
+async function hashAdminPassword(password,saltHex,iterations){
+ if(!window.crypto||!crypto.subtle)throw new Error('این مرورگر امکان رمزنگاری امن را فراهم نکرد. فایل را با مرورگر به‌روز باز کن.');
+ const salt=new Uint8Array(saltHex.match(/.{1,2}/g).map(x=>parseInt(x,16)));
+ const key=await crypto.subtle.importKey('raw',new TextEncoder().encode(password),'PBKDF2',false,['deriveBits']);
+ const bits=await crypto.subtle.deriveBits({name:'PBKDF2',salt,iterations,hash:'SHA-256'},key,256);
+ return bytesToHex(bits);
+}
+async function handleAdminAuth(){
+ const msg=document.getElementById('adminAuthMessage');
+ const pass=document.getElementById('adminPasswordInput').value;
+ const stored=localStorage.getItem(ADMIN_AUTH_KEY);
+ const isSetup=!stored;
+ try{
+  if(pass.length<8){msg.textContent='رمز عبور باید حداقل ۸ نویسه داشته باشد.';return;}
+  if(isSetup){
+   const confirmPass=document.getElementById('adminPasswordConfirm').value;
+   if(pass!==confirmPass){msg.textContent='دو رمز واردشده یکسان نیستند.';return;}
+   const salt=bytesToHex(randomSalt());
+   const iterations=180000;
+   const hash=await hashAdminPassword(pass,salt,iterations);
+   localStorage.setItem(ADMIN_AUTH_KEY,JSON.stringify({salt,hash,iterations}));
+  }else{
+   const record=JSON.parse(stored);
+   const candidate=await hashAdminPassword(pass,record.salt,record.iterations||180000);
+   if(candidate!==record.hash){msg.textContent='رمز عبور اشتباه است.';return;}
+  }
+  adminUnlocked=true;
+  document.getElementById('adminAuthGate').hidden=true;
+  document.getElementById('adminWorkspace').hidden=false;
+  refreshAdminSelect();loadAdminGame();
+  document.getElementById('adminPasswordInput').value='';
+  document.getElementById('adminPasswordConfirm').value='';
+ }catch(err){msg.textContent=err.message||'ورود ناموفق بود.';}
+}
+function openAdmin(){
+ document.getElementById('adminOverlay').classList.add('open');
+ document.getElementById('adminOverlay').setAttribute('aria-hidden','false');
+ adminUnlocked=false;
+ let hasAuth=false;try{hasAuth=!!localStorage.getItem(ADMIN_AUTH_KEY)}catch(e){}
+ setAdminAuthView(!hasAuth);
+}
+function closeAdmin(){
+ document.getElementById('adminOverlay').classList.remove('open');
+ document.getElementById('adminOverlay').setAttribute('aria-hidden','true');
+ adminUnlocked=false;
+ document.getElementById('adminWorkspace').hidden=true;
+}
+function refreshAdminSelect(selectedId){const sel=document.getElementById('adminGameSelect');sel.innerHTML=games.map(g=>`<option value="${g.id}">${g.name}</option>`).join('');if(selectedId!=null)sel.value=String(selectedId);}
+function loadAdminGame(){const g=games.find(x=>String(x.id)===document.getElementById('adminGameSelect').value)||games[0];if(!g)return;const fields={Name:'name',Genre:'genre',Year:'year',Studio:'studio',Size:'size',Emoji:'emoji',C1:'c1',C2:'c2',Desc:'desc',Story:'story',Gameplay:'gameplay',Features:'features',Modes:'modes',Platforms:'platforms',Requirements:'requirements'};for(const [id,key] of Object.entries(fields))document.getElementById('admin'+id).value=g[key]??'';document.getElementById('adminPsExclusive').checked=g.psExclusive===true;document.getElementById('adminFps').value=JSON.stringify(g.fps||[],null,2);}
+function persistGames(){try{localStorage.setItem('nexor_admin_games_v1',JSON.stringify(games));}catch(e){adminStatus('ذخیره مرورگر انجام نشد؛ از دریافت HTML یا پشتیبان JSON استفاده کن.');return false;}return true;}
+function saveAdminGame(){if(!adminUnlocked)return;const id=Number(document.getElementById('adminGameSelect').value);const g=games.find(x=>x.id===id);if(!g)return;const fields={Name:'name',Genre:'genre',Year:'year',Studio:'studio',Size:'size',Emoji:'emoji',C1:'c1',C2:'c2',Desc:'desc',Story:'story',Gameplay:'gameplay',Features:'features',Modes:'modes',Platforms:'platforms',Requirements:'requirements'};for(const [field,key] of Object.entries(fields))g[key]=document.getElementById('admin'+field).value.trim();g.psExclusive=document.getElementById('adminPsExclusive').checked;try{const fps=JSON.parse(document.getElementById('adminFps').value||'[]');if(!Array.isArray(fps)||fps.some(r=>!Array.isArray(r)||r.length!==4))throw new Error('ساختار FPS باید آرایه‌ای از ردیف‌های چهارتایی باشد.');g.fps=fps;}catch(e){adminStatus('خطا در جدول FPS: '+e.message);return;}persistGames();render();refreshAdminSelect(id);adminStatus('تغییرات بازی ذخیره شد.');}
+function addAdminGame(){if(!adminUnlocked)return;const id=Math.max(0,...games.map(g=>Number(g.id)||0))+1;const g={id,psExclusive:false,name:'بازی جدید',genre:'ژانر بازی',year:'سال انتشار',studio:'سازنده / ناشر',size:'اعلام نشده',emoji:'🎮',c1:'#6543a8',c2:'#17112d',desc:'معرفی بازی را اینجا بنویس.',story:'داستان بازی را اینجا بنویس.',gameplay:'گیم‌پلی بازی را اینجا بنویس.',features:'ویژگی‌های اصلی را اینجا بنویس.',modes:'حالت‌های بازی را اینجا بنویس.',platforms:'پلتفرم‌ها را اینجا بنویس.',requirements:'اطلاعات فنی را اینجا بنویس.',fps:[]};games.unshift(g);persistGames();render();refreshAdminSelect(id);loadAdminGame();adminStatus('بازی جدید اضافه شد؛ اطلاعاتش را ویرایش و ذخیره کن.');}
+function deleteAdminGame(){if(!adminUnlocked)return;const id=Number(document.getElementById('adminGameSelect').value);const g=games.find(x=>x.id===id);if(!g)return;if(!confirm('بازی «'+g.name+'» از کتابخانه حذف شود؟'))return;games=games.filter(x=>x.id!==id);persistGames();render();refreshAdminSelect(games[0]?.id);loadAdminGame();adminStatus('بازی حذف شد.');}
+function downloadBlob(content,name,type){const blob=new Blob([content],{type});const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download=name;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),1200);}
+function exportAdminJson(){if(!adminUnlocked)return;downloadBlob(JSON.stringify(games,null,2),'NEXOR-games-backup.json','application/json;charset=utf-8');adminStatus('فایل پشتیبان JSON آماده شد.');}
+function importAdminJson(file){if(!adminUnlocked)return;const reader=new FileReader();reader.onload=()=>{try{const data=JSON.parse(reader.result);if(!Array.isArray(data)||data.some(g=>!g||typeof g.name!=='string'||!Array.isArray(g.fps)))throw new Error('ساختار فایل بازی‌ها معتبر نیست.');games=data;persistGames();render();refreshAdminSelect(games[0]?.id);loadAdminGame();adminStatus('پشتیبان وارد شد.');}catch(e){adminStatus('ورود ناموفق: '+e.message);}};reader.readAsText(file);}
+function downloadUpdatedHtml(){if(!adminUnlocked)return;
+ const overlay=document.getElementById('adminOverlay');overlay.classList.remove('open');
+ const clone=document.documentElement.cloneNode(true);
+ let html='<!DOCTYPE html>\n'+clone.outerHTML;
+ const start='/*NEXOR_GAMES_START*/',end='/*NEXOR_GAMES_END*/';const a=html.indexOf(start),b=html.indexOf(end,a+start.length);
+ if(a<0||b<0){overlay.classList.add('open');adminStatus('خطا: محل داده‌های بازی در فایل پیدا نشد.');return;}
+ html=html.slice(0,a+start.length)+JSON.stringify(games)+html.slice(b);
+ downloadBlob(html,'NEXOR-Updated.html','text/html;charset=utf-8');overlay.classList.add('open');adminStatus('فایل HTML جدید ساخته شد؛ آن را جایگزین فایل قبلی کن.');
+}
+document.getElementById('adminAuthAction').addEventListener('click',handleAdminAuth);
+document.getElementById('adminPasswordInput').addEventListener('keydown',e=>{if(e.key==='Enter')handleAdminAuth();});
+document.getElementById('adminPasswordConfirm').addEventListener('keydown',e=>{if(e.key==='Enter')handleAdminAuth();});
+document.getElementById('openAdmin').addEventListener('click',openAdmin);
+document.getElementById('closeAdmin').addEventListener('click',closeAdmin);
+document.getElementById('adminGameSelect').addEventListener('change',loadAdminGame);
+document.getElementById('saveGame').addEventListener('click',saveAdminGame);
+document.getElementById('addGame').addEventListener('click',addAdminGame);
+document.getElementById('deleteGame').addEventListener('click',deleteAdminGame);
+document.getElementById('downloadHtml').addEventListener('click',downloadUpdatedHtml);
+document.getElementById('exportJson').addEventListener('click',exportAdminJson);
+document.getElementById('importJson').addEventListener('click',()=>document.getElementById('jsonFile').click());
+document.getElementById('jsonFile').addEventListener('change',e=>{if(e.target.files[0])importAdminJson(e.target.files[0]);e.target.value='';});
+document.getElementById('resetAdmin').addEventListener('click',()=>{if(!confirm('همه تغییرات ذخیره‌شده در این مرورگر پاک و اطلاعات اولیه بازی‌ها بازیابی شود؟'))return;games=JSON.parse(JSON.stringify(NEXOR_DEFAULT_GAMES));try{localStorage.removeItem('nexor_admin_games_v1')}catch(e){}render();refreshAdminSelect(games[0]?.id);loadAdminGame();adminStatus('اطلاعات اولیه بازی‌ها بازیابی شد.');});
+
+
+
+const dossierProfiles={
+12:[
+["👥 شخصیت‌ها و روابط","Jason و Lucia دو شخصیت محوری‌اند که رابطه و همکاری‌شان هسته روایت را شکل می‌دهد. جزئیات کامل گذشته، خانواده، دوستان و شخصیت‌های فرعی باید با اطلاعات نسخه نهایی تکمیل شود."],
+["🗺️ شهرها، نقشه و محیط","Leonida ایالت خیالی بازی است و Vice City مرکز شهری شناخته‌شده آن محسوب می‌شود. تریلرها محیط‌های شهری، ساحلی، تالابی و جاده‌ای را نشان داده‌اند؛ نقشه کامل و مرزهای مناطق هنوز نباید حدس زده شوند."],
+["🎯 مأموریت‌ها و فعالیت‌های جانبی","ساختار جهان‌باز و مأموریت‌های داستانی تأیید شده‌اند. فهرست کامل مأموریت‌ها، فعالیت‌های فرعی، رویدادها و مشاغل در اطلاعات این پرونده منتشر نشده است."],
+["🚗 وسایل نقلیه","رانندگی و وسایل نقلیه بخشی از تجربه GTA است و ویدئوهای معرفی، خودروها و وسایل نقلیه متنوع را نمایش داده‌اند. فهرست نهایی، برندها، قابلیت سفارشی‌سازی و تعداد وسایل هنوز قطعی نیست."],
+["🔫 سلاح‌ها و مبارزه","وجود درگیری و مبارزه در چارچوب اکشن جهان‌باز قابل انتظار و در ویدئوهای معرفی دیده شده است؛ فهرست سلاح‌ها، جزئیات ارتقا و تعادل نهایی هنوز کامل اعلام نشده."],
+["🧠 مکانیک‌ها و قابلیت‌ها","دو شخصیت اصلی، تعامل با محیط، رانندگی و ساختار جهان‌باز از عناصر معرفی‌شده‌اند. هر قابلیت جزئی که رسماً معرفی نشده باشد در این صفحه به‌عنوان ویژگی قطعی ثبت نمی‌شود."],
+["🎨 گرافیک، فیزیک و هوش مصنوعی","تریلرها کیفیت بصری نسل جدید، نورپردازی و جزئیات محیطی بالایی را نشان می‌دهند. ارزیابی فیزیک رانندگی، رفتار NPCها و هوش مصنوعی نهایی نیازمند نسخه قابل‌بازی و آزمون مستقل است."],
+["🛠️ موتور و سازندگان","سازنده بازی Rockstar Games است. فناوری اختصاصی Rockstar Advanced Game Engine یا RAGE در آثار این استودیو به‌کار رفته؛ جزئیات نسخه و تغییرات فنی اختصاصی GTA VI به‌صورت کامل منتشر نشده است."],
+["📅 انتشار و وضعیت فنی","طبق اطلاعات درج‌شده در فهرست فعلی سایت، تاریخ اعلام‌شده ۱۹ نوامبر ۲۰۲۶ است و پلتفرم‌های درج‌شده PS5 و Xbox Series X|S هستند. حجم نصب، نرخ فریم نهایی و نسخه PC در این پرونده تأیید نشده‌اند."]
+],
+11:[
+["🚘 خودروها و کلاس‌ها","تمرکز مجموعه Forza Horizon بر مجموعه‌ای از خودروهای جاده‌ای، اسپرت، کلاسیک، آفرود و مسابقه‌ای است. فهرست کامل خودروهای Horizon 6 و تعداد نهایی آن‌ها باید از فهرست رسمی بازی تکمیل شود."],
+["🏁 مسابقات و رویدادها","انتظار می‌رود ساختار فستیوال شامل رقابت‌های جاده‌ای، خاکی، کراس‌کانتری، سرعت و چالش‌های مهارتی باشد؛ جزئیات رویدادهای نسخه نهایی را باید از اعلامیه‌های رسمی تفکیک کرد."],
+["🗾 نقشه و محیط ژاپن","محیط ژاپن در معرفی بازی مطرح شده است. شهرها، جاده‌های کوهستانی، مناطق روستایی و ساحلی در توضیح فعلی سایت آمده‌اند؛ اندازه نقشه و نام تمام مناطق تا زمان انتشار نقشه رسمی قطعی نیست."],
+["🔧 تیونینگ و شخصی‌سازی","در سنت مجموعه، تنظیمات فنی خودرو، ارتقای قطعات، تنظیم هندلینگ و ظاهر خودرو اهمیت دارند. فهرست دقیق قطعات و تغییرات جدید Horizon 6 هنوز در این پرونده تأیید نشده است."],
+["🌦️ آب‌وهوا و چرخه محیط","تنوع آب‌وهوایی و محیطی بخشی از معرفی بازی است. نوع دقیق شرایط جوی، اثر آن بر چسبندگی تایر و چرخه فصل‌ها باید با اطلاعات رسمی نسخه نهایی تکمیل شود."],
+["🎮 گیم‌پلی و حالت‌ها","رانندگی آزاد، مسابقات و رویدادهای چندنفره از پایه‌های تجربه Horizon هستند. فهرست کامل Playlistها و ابزارهای ساخت رویداد در نسخه نهایی ممکن است تغییر کند."],
+["🖥️ فناوری و عملکرد","نسخه‌های Xbox Series و PC در کارت فعلی درج شده‌اند. FPSهای جدول، هدف/تخمین‌اند و تا انتشار بنچمارک مستقل نباید نتیجه قطعی تلقی شوند."]
+],
+15:[
+["🧑‍🤝‍🧑 شخصیت‌ها و روایت","این بازی بخشی از مجموعه Resident Evil است. اطلاعات موجود در کارت فعلی، شخصیت‌ها و جزئیات کامل روایت را مشخص نمی‌کند؛ بنابراین نام یا رابطه شخصیت‌های تأییدنشده به پرونده اضافه نشده است."],
+["🏚️ محیط‌ها و اکتشاف","فضاسازی ترسناک، محیط‌های قابل اکتشاف و مواجهه با تهدیدهای زیستی محور تجربه معرفی‌شده‌اند. فهرست مکان‌ها و نقشه کامل در این پرونده موجود نیست."],
+["🧩 معماها و پیشروی","حل معما و جست‌وجوی محیط در کنار مدیریت منابع از عناصر اصلی سبک بقا-وحشت هستند. معماهای مشخص و ترتیب مراحل تا انتشار جزئیات معتبر نامشخص‌اند."],
+["🧟 دشمنان و مبارزه","تهدیدهای زیستی، دشمنان و باس‌ها بخشی از ساختار اکشن-ترسناک بازی‌اند. نام، گونه و الگوی رفتاری دشمنان باید با معرفی رسمی تکمیل شود."],
+["🎒 منابع و تجهیزات","مدیریت مهمات و منابع محدود در طراحی بقا-وحشت اهمیت دارد. موجودی، ساخت آیتم و ارتقای تجهیزات نسخه نهایی در اطلاعات فعلی مشخص نیست."],
+["🎧 صدا، نور و گرافیک","نورپردازی، صداگذاری و طراحی محیط در ایجاد تنش نقش مهمی دارند؛ کیفیت نهایی و عملکرد فنی نیازمند بررسی نسخه عرضه‌شده است."],
+["🛠️ سازنده و فناوری","سازنده Capcom است. جزئیات فنی موتور، رزولوشن و حالت‌های گرافیکی باید از مشخصات رسمی هر پلتفرم استخراج شود."]
+],
+16:[
+["🥷 شخصیت و جهان داستان","کارت فعلی از قهرمانی درگیر محدودیت زمانی و توطئه‌ها در جهانی فانتزی تاریک یاد می‌کند. نام‌ها و روابط شخصیت‌های فرعی فقط در صورت تأیید رسمی باید اضافه شوند."],
+["⚔️ سیستم مبارزه","تمرکز بازی بر مبارزه سریع، ترکیب ضربات، دفاع و جاخالی، استفاده از سلاح‌های گوناگون و رویارویی با باس‌هاست. جزئیات دقیق زمان‌بندی و مهارت‌ها به نسخه نهایی وابسته است."],
+["🗡️ سلاح‌ها و سبک‌ها","سلاح‌های متنوع و تغییر رویکرد مبارزه از عناصر معرفی‌شده‌اند. فهرست کامل سلاح‌ها، ویژگی‌های هرکدام و روش ارتقا در داده فعلی موجود نیست."],
+["👹 دشمنان و باس‌ها","طراحی دشمنان قدرتمند و باس‌فایت‌های سینمایی از محورهای بازی است. نام و الگوی تمام باس‌ها بدون فهرست رسمی قابل ثبت نیست."],
+["🏯 محیط و اکتشاف","فضای فانتزی تاریک با الهام از هنرهای رزمی و محیط‌های سینمایی توصیف شده است. نقشه و مناطق کامل هنوز در این پرونده مشخص نیست."],
+["🎥 گرافیک و اجرا","نمایش‌های بازی بر انیمیشن‌های مبارزه و جلوه‌های سینمایی تأکید دارند. نرخ فریم، رزولوشن و کیفیت نهایی باید با بنچمارک نسخه عرضه‌شده سنجیده شود."]
+],
+17:[
+["🪖 شخصیت‌ها و داستان","روایت به Emergence Day و آغاز جنگ انسان‌ها با Locust بازمی‌گردد. Marcus Fenix و Dom Santiago از چهره‌های شناخته‌شده ریشه‌های مجموعه‌اند؛ حضور و نقش دقیق هر شخصیت در این نسخه باید مطابق اعلام رسمی سنجیده شود."],
+["🗺️ میدان‌های نبرد","فضای بازی به روزهای آغازین حمله Locust مربوط است. فهرست نقشه‌ها، مناطق و مراحل هنوز در اطلاعات این پرونده کامل نیست."],
+["🔫 سلاح‌ها و مبارزه","هویت مجموعه بر شوتر سوم‌شخص، پوشش‌گیری، سلاح‌های سنگین و نبرد نزدیک استوار است. فهرست کامل سلاح‌های E-Day و تغییرات آن‌ها هنوز اعلام نشده."],
+["👾 دشمنان","Locust تهدید اصلی روایت آغاز جنگ است. گونه‌های دشمن و باس‌ها باید پس از معرفی رسمی در پرونده ثبت شوند."],
+["🤝 حالت‌های بازی","اطلاعات قطعی درباره کمپین و حالت‌های چندنفره باید از اعلامیه‌های نهایی سازنده پیگیری شود؛ این کارت از حدس‌زدن فهرست مودها خودداری می‌کند."],
+["🛠️ فناوری و سازنده","سازنده The Coalition است. مجموعه Gears در نسل جدید از Unreal Engine استفاده می‌کند؛ نسخه دقیق موتور و ویژگی‌های فنی اختصاصی این عنوان باید با مشخصات رسمی تکمیل شود."]
+],
+14:[
+["🧑‍🚀 شخصیت‌ها و گروه‌ها","Kliff و گروه Greymanes در مرکز روایت قرار دارند. رابطه اعضای گروه، شخصیت‌های همراه و جناح‌های Pywel در طول داستان گسترش پیدا می‌کند؛ فهرست کامل شخصیت‌ها باید با منابع رسمی تکمیل شود."],
+["🌍 جهان و مناطق","Pywel سرزمینی وسیع با مناطق طبیعی، سکونتگاه‌ها و محیط‌های متنوع است. نقشه کامل، نام تمام مناطق و اندازه دقیق جهان در داده فعلی سایت درج نشده است."],
+["📜 مأموریت‌ها و فعالیت‌ها","مأموریت‌های داستانی، اکتشاف، فعالیت‌های محیطی و نبرد با باس‌ها از عناصر معرفی‌شده‌اند. فهرست کامل مأموریت‌ها و فعالیت‌های جانبی هنوز در این پرونده وجود ندارد."],
+["⚔️ مبارزه و مهارت‌ها","مبارزه نزدیک، ترکیب حملات، سلاح‌ها و مهارت‌های مختلف در تجربه اکشن نقش دارند. کنترل دقیق، درخت مهارت و جزئیات ارتقا به نسخه نهایی وابسته است."],
+["🐎 سفر و تعامل با جهان","گشت‌وگذار در جهان و تعامل با محیط از بخش‌های مهم بازی‌اند. جزئیات کامل وسایل سفر و فعالیت‌های قابل تعامل باید با مستندات نهایی تکمیل شود."],
+["🎨 گرافیک و موتور","Pearl Abyss سازنده بازی است و فناوری BlackSpace Engine برای این پروژه معرفی شده است. کیفیت نهایی و عملکرد روی هر پلتفرم باید با آزمون نسخه عرضه‌شده سنجیده شود."]
+],
+18:[
+["🪖 کمپین و شخصیت‌ها","بازی علاوه بر بخش چندنفره، کمپین تک‌نفره با فضای درگیری مدرن دارد. جزئیات شخصیت‌ها و ترتیب مأموریت‌ها در این کارت به خلاصه کلی محدود است و باید با فهرست رسمی مراحل تکمیل شود."],
+["🗺️ نقشه‌ها و میدان نبرد","نقشه‌های چندنفره در مقیاس‌ها و چیدمان‌های متفاوت طراحی می‌شوند. نام و فهرست نقشه‌های فعال ممکن است با فصل‌ها و به‌روزرسانی‌ها تغییر کند."],
+["🔫 سلاح‌ها و تجهیزات","کلاس‌ها، سلاح‌های پیاده‌نظام، تجهیزات و وسایل نقلیه در نبرد نقش دارند. آمار آسیب، برد و تعادل سلاح‌ها با به‌روزرسانی‌ها تغییر می‌کند؛ برای همین اعداد ثابت بدون نسخه مشخص ارائه نمی‌شوند."],
+["🚁 وسایل نقلیه","وسایل نقلیه زمینی و هوایی بخشی از نبردهای وسیع Battlefield هستند. نوع و دسترسی به هر وسیله به نقشه و مود مسابقه وابسته است."],
+["💥 تخریب و تاکتیک تیمی","تخریب‌پذیری محیط می‌تواند مسیرها و پوشش‌ها را تغییر دهد. همکاری تیمی، انتخاب کلاس و کنترل نقاط در مودهای هدف‌محور اهمیت دارد."],
+["🎮 مودها و پیشرفت","کمپین و چندنفره از بخش‌های اصلی‌اند. فهرست مودهای در دسترس، Playlistها و سیستم پیشرفت ممکن است با فصل‌ها تغییر کند."],
+["🖥️ عملکرد و تنظیمات","FPS روی PC به CPU، GPU، رزولوشن و تنظیمات وابسته است. اعداد کنسولی باید برای هر حالت گرافیکی و نسخه بازی جداگانه سنجیده شوند."]
+],
+19:[
+["🥷 شخصیت‌های اصلی","Naoe شینوبی و Yasuke سامورایی دو شخصیت اصلی با رویکردهای متفاوت‌اند. تفاوت مهارت‌ها و سبک بازی آن‌ها باعث می‌شود نفوذ مخفیانه و مبارزه مستقیم مسیرهای متمایزی داشته باشند."],
+["🗾 ژاپن و مناطق نقشه","بازی در ژاپن دوره فئودال جریان دارد. مناطق شهری، روستایی و طبیعت با تغییر فصل‌ها ظاهر متفاوتی پیدا می‌کنند؛ اندازه دقیق نقشه را نباید بدون منبع رسمی حدس زد."],
+["🎯 مأموریت‌ها و اهداف","کمپین داستانی، مأموریت‌های شخصیت‌محور، اهداف مخفی‌کاری و درگیری مستقیم در ساختار جهان‌باز حضور دارند. مأموریت‌ها می‌توانند بسته به انتخاب شخصیت رویکرد متفاوتی داشته باشند."],
+["🗡️ سلاح‌ها و ابزارها","سبک Naoe بر ابزارهای شینوبی و نفوذ تکیه دارد؛ Yasuke در مبارزه مستقیم از سلاح‌های سامورایی استفاده می‌کند. جزئیات ابزار و سلاح‌ها با پیشرفت بازی باز می‌شوند."],
+["🌸 فصل‌ها و آب‌وهوا","تغییر فصل‌ها بر ظاهر محیط و برخی فرصت‌های گیم‌پلی اثر می‌گذارد. آب‌وهوا و پوشش محیطی در تجربه اکتشاف و مخفی‌کاری نقش دارند."],
+["🏯 پایگاه و پیشرفت","پایگاه قابل توسعه و فعالیت‌های جهان‌باز از عناصر بازی‌اند. ارتقای امکانات و پیشرفت شخصیت‌ها بخشی از چرخه بلندمدت بازی است."],
+["🖥️ گرافیک و عملکرد","نسخه‌های PC و کنسولی تنظیمات متفاوتی دارند. کیفیت تصویر، Ray Tracing و FPS باید بر اساس نسخه و حالت گرافیکی مشخص شوند."]
+],
+8:[
+["⚽ گیم‌پلی فوتبال","پاس، دریبل، شوت، دفاع، کنترل فضا و تغییر تاکتیک هسته مسابقه‌اند. حس بازی به تنظیمات کنترل، سطح دشواری و به‌روزرسانی‌های گیم‌پلی وابسته است."],
+["👥 تیم‌ها، لیگ‌ها و بازیکنان","فهرست تیم‌ها، لیگ‌ها، بازیکنان و لایسنس‌ها ممکن است با قراردادها و آپدیت‌ها تغییر کند. برای ترکیب و امتیاز بازیکنان باید دیتابیس همان نسخه بررسی شود."],
+["🏆 حالت‌های بازی","Career برای مدیریت یا هدایت بازیکن/باشگاه، Ultimate Team برای ساخت تیم، Clubs برای بازی گروهی و Kick-Off برای مسابقه سریع در دسترس‌اند؛ قابلیت‌ها با پلتفرم تفاوت دارند."],
+["🧠 تاکتیک و شخصی‌سازی","چیدمان، نقش بازیکنان، دستورهای تاکتیکی و تعویض‌ها بر شکل بازی اثر می‌گذارند. تنظیمات و متای رقابتی ممکن است با پچ‌ها تغییر کند."],
+["🌐 آنلاین و آفلاین","برخی حالت‌ها آفلاین و برخی به اتصال و سرویس‌های آنلاین نیاز دارند. امکانات آنلاین، بازار و رویدادهای Ultimate Team به سرورهای EA وابسته‌اند."],
+["🎮 کنترل و عملکرد","نسخه PC و کنسول‌ها از نظر تنظیمات و امکانات فنی تفاوت دارند. هدف 60 FPS در کنسول‌ها به معنی قفل‌شدن دائمی فریم در تمام شرایط نیست."]
+],
+7:[
+["🎯 ساختار بتل‌رویال","بازیکنان به نقشه وارد می‌شوند، تجهیزات جمع می‌کنند و برای بقا با تیم‌های دیگر رقابت می‌کنند. حلقه منطقه امن و جریان مسابقه بازیکنان را به درگیری نزدیک‌تر هدایت می‌کند."],
+["🗺️ نقشه‌ها و Playlistها","نقشه‌ها و حالت‌های فعال Warzone با فصل‌ها تغییر می‌کنند. برای جلوگیری از اطلاعات منقضی، نام نقشه و Playlist باید همراه تاریخ آخرین بررسی درج شود."],
+["🔫 سلاح‌ها و Loadout","سلاح‌ها، اتچمنت‌ها و Loadoutها بخش مهمی از آماده‌سازی مسابقه‌اند. آمار و بهترین ترکیب‌ها با توازن فصل‌ها تغییر می‌کنند؛ این پرونده از معرفی یک متای همیشگی خودداری می‌کند."],
+["🪂 حرکت و بقا","فرود، جابه‌جایی، مدیریت زره و مهمات، استفاده از قراردادها و بازگشت به مسابقه در حالت‌هایی که فعال‌اند، چرخه اصلی بازی را می‌سازند."],
+["👥 تیم و ارتباط","حالت‌های Solo و تیمی بسته به Playlist در دسترس‌اند. پینگ‌کردن، هماهنگی و تقسیم نقش‌ها برای بقا و کنترل موقعیت اهمیت دارند."],
+["🌐 اتصال و الزامات","Warzone یک تجربه آنلاین است و به اتصال اینترنت و سرویس‌های پلتفرم نیاز دارد. حجم نصب با بسته‌های انتخابی و آپدیت‌ها تغییر می‌کند."],
+["🖥️ عملکرد","FPS به سخت‌افزار، نقشه، شلوغی صحنه، تنظیمات و نسخه وابسته است. اعداد تخمینی نباید به‌عنوان تضمین عملکرد تلقی شوند."]
+],
+9:[
+["🏰 هاگوارتز و مناطق","قلعه Hogwarts، روستای Hogsmeade و مناطق اطراف برای کلاس‌ها، اکتشاف و مأموریت‌ها در دسترس‌اند. بخش‌های داخلی قلعه و محیط بیرونی مسیرهای فرعی و رازهای زیادی دارند."],
+["🧙 شخصیت‌ها و همراهان","بازیکن شخصیت خود را می‌سازد و با دانش‌آموزان و استادان هاگوارتز تعامل می‌کند. مأموریت‌های همراهان داستان‌های فرعی مستقل دارند."],
+["✨ جادوها و مبارزه","طلسم‌های کنترلی، حمله‌ای و دفاعی را می‌توان در ترکیب‌های مختلف استفاده کرد. زمان‌بندی سپر، جاخالی و شکستن دفاع دشمن در مبارزه اهمیت دارد."],
+["🧪 ساخت و جمع‌آوری","معجون‌سازی، پرورش گیاهان، جمع‌آوری منابع و مدیریت تجهیزات بخشی از پیشرفت هستند. Room of Requirement فضای شخصی‌سازی و آماده‌سازی را فراهم می‌کند."],
+["🦉 جانوران و سفر","پرواز با جارو و برخی موجودات پرنده، جابه‌جایی در نقشه را متنوع می‌کند. موجودات جادویی نیز در فعالیت‌های مربوط به مراقبت و جمع‌آوری حضور دارند."],
+["📚 مأموریت‌ها و انتخاب‌ها","مأموریت‌های اصلی، تمرین‌های استادان، چالش‌ها و مأموریت‌های همراهان تجربه را گسترش می‌دهند. انتخاب خانه به‌تنهایی مسیر اصلی داستان را کاملاً متفاوت نمی‌کند."],
+["🖥️ عملکرد و نسخه‌ها","نسخه‌های PC، نسل جدید و نسل قبل از نظر کیفیت تصویر، زمان بارگذاری و جزئیات تفاوت دارند. FPS به حالت و سخت‌افزار وابسته است."]
+],
+5:[
+["🌆 شهر Night City","Night City از مناطق شهری با معماری، اقتصاد و حال‌وهوای متفاوت تشکیل شده و Badlands پیرامون شهر را در بر می‌گیرد. رفت‌وآمد، تبلیغات، ترافیک و طراحی محیط بخشی از هویت جهان بازی‌اند."],
+["🧑 شخصیت‌ها و روابط","V شخصیت قابل‌کنترل است و رابطه او با Johnny Silverhand و شخصیت‌هایی مانند Judy، Panam و دیگر همراهان در مأموریت‌ها گسترش می‌یابد. انتخاب‌ها می‌توانند مسیر برخی روابط و پایان‌ها را تغییر دهند."],
+["📜 مأموریت‌ها و پایان‌ها","مأموریت‌های اصلی، قراردادهای Fixer، فعالیت‌های NCPD و داستان‌های فرعی در کنار هم قرار دارند. برخی تصمیم‌ها در مأموریت‌ها بر دسترسی به مسیرها و پایان‌ها اثر می‌گذارند."],
+["🔫 مبارزه و مخفی‌کاری","بازیکن می‌تواند از سلاح گرم، سلاح سرد، هک سریع و رویکرد مخفی‌کاری استفاده کند. ساخت Build تعیین می‌کند تمرکز روی تیراندازی، هک، سرعت یا مبارزه نزدیک باشد."],
+["🦾 Cyberware و پیشرفت","ارتقای بدن با Cyberware، درخت مهارت و تجهیزات، شیوه بازی را تغییر می‌دهد. ظرفیت و انتخاب قطعات باید با سبک مبارزه هماهنگ شود."],
+["🚗 خودروها و جابه‌جایی","ماشین‌ها و موتورسیکلت‌ها برای گشت‌وگذار و برخی مأموریت‌ها استفاده می‌شوند. وسایل نقلیه قابل دریافت و برخی گزینه‌های شخصی‌سازی در طول بازی باز می‌شوند."],
+["🎮 بسته الحاقی و نسخه‌ها","Phantom Liberty بسته داستانی جداگانه‌ای است و محتوای تازه‌ای به تجربه اضافه می‌کند. قابلیت‌ها و عملکرد با نسخه بازی و پلتفرم تفاوت دارند."],
+["🖥️ گرافیک و اجرا","Ray Tracing و Path Tracing در PC فشار پردازشی زیادی دارند. روی کنسول‌ها حالت‌های عملکرد و کیفیت بسته به مدل دستگاه و نسخه بازی متفاوت‌اند."]
+],
+6:[
+["🌄 جهان Lands Between","جهان بازی از دشت‌ها، قلعه‌ها، غارها، دخمه‌ها و مناطق زیرزمینی تشکیل شده است. مسیرهای فرعی و سیاه‌چال‌ها پاداش‌ها و باس‌های اختیاری دارند."],
+["👑 شخصیت‌ها و روایت","Tarnished در پی Great Runes و تبدیل‌شدن به Elden Lord است. روایت از طریق گفتگو، توضیحات آیتم‌ها و طراحی محیط ارائه می‌شود و بسیاری از روابط نیازمند کاوش هستند."],
+["⚔️ سلاح‌ها و ساخت Build","سلاح‌های نزدیک‌برد، دوربرد، سپرها، جادوها و Incantationها سبک‌های مختلف می‌سازند. ویژگی‌های شخصیت و ارتقای سلاح در کارایی Build مؤثرند."],
+["🛡️ سیستم مبارزه","مدیریت استقامت، فاصله، زمان‌بندی جاخالی و دفاع، شناخت الگوی باس‌ها و استفاده درست از فرصت حمله اهمیت دارد. Spirit Ashes در برخی نبردها کمک می‌کنند."],
+["🐉 باس‌ها و دشمنان","باس‌های اصلی مسیر پیشروی را شکل می‌دهند و باس‌های اختیاری در جهان پراکنده‌اند. بسیاری از دشمنان الگوهای حمله و پنجره‌های زمانی مشخص دارند."],
+["🤝 آنلاین و همکاری","بازی امکان همکاری و PvP آنلاین را در قالب سازوکارهای احضار و نشانه‌ها فراهم می‌کند. تجربه آنلاین به تنظیمات و سرویس پلتفرم وابسته است."],
+["📦 بسته Shadow of the Erdtree","این بسته الحاقی محتوای تازه‌ای از جمله منطقه، دشمنان و تجهیزات جدید اضافه می‌کند و برای تجربه آن باید نسخه پایه و شرایط دسترسی لازم را داشت."],
+["🖥️ عملکرد فنی","نسخه PC معمولاً سقف فریم 60 دارد و عملکرد کنسولی نیز با توجه به صحنه می‌تواند نوسان کند. اعداد دقیق باید با نسخه و پچ مشخص گزارش شوند."]
+],
+10:[
+["🐺 شخصیت Geralt و همراهان","Geralt of Rivia شکارچی هیولاست و جست‌وجوی Ciri محور داستان اصلی است. شخصیت‌هایی مانند Yennefer، Triss، Dandelion و همراهان دیگر در روابط و مأموریت‌ها نقش دارند."],
+["🗺️ مناطق جهان","بخش‌های مهم جهان شامل Velen، Novigrad، Skellige و مناطق دیگرند. هر منطقه فرهنگ، خطرها، مأموریت‌ها و محیط طبیعی متفاوتی دارد."],
+["📜 مأموریت‌ها و انتخاب‌ها","داستان اصلی، قراردادهای شکار هیولا، مأموریت‌های فرعی و مأموریت‌های شخصیت‌محور در هم تنیده‌اند. انتخاب‌ها می‌توانند نتیجه برخی داستان‌ها و پایان را تغییر دهند."],
+["⚔️ مبارزه و آماده‌سازی","Geralt از دو شمشیر، نشانه‌های جادویی، بمب‌ها، معجون‌ها و روغن‌ها استفاده می‌کند. شناخت نوع هیولا و آماده‌سازی پیش از مبارزه اهمیت دارد."],
+["🐎 سفر و فعالیت‌های جانبی","اسب‌سواری با Roach، قایق، گشت‌وگذار، شکار گنج و بازی کارتی Gwent از فعالیت‌های جهان هستند."],
+["📦 بسته‌های الحاقی","Hearts of Stone و Blood and Wine دو بسته داستانی بزرگ‌اند. Blood and Wine منطقه Toussaint را به تجربه اضافه می‌کند."],
+["🖥️ نسخه نسل جدید","نسخه نسل جدید بهبودهای بصری و فنی دارد. Ray Tracing در PC سنگین است و حالت‌های کنسولی کیفیت و عملکرد متفاوتی ارائه می‌کنند."]
+],
+1:[
+["👥 سه شخصیت اصلی","Michael، Franklin و Trevor سه شخصیت قابل‌بازی‌اند که پیشینه، روابط و مهارت‌های متفاوتی دارند. روایت با جابه‌جایی میان آن‌ها پیش می‌رود."],
+["🌴 نقشه Los Santos","شهر Los Santos و مناطق اطراف آن شامل محله‌های شهری، ساحل، کوهستان، بیابان و مسیرهای روستایی است. نقشه برای رانندگی، پرواز و فعالیت آزاد طراحی شده."],
+["💰 سرقت‌ها و مأموریت‌ها","Heistها مأموریت‌های چندمرحله‌ای‌اند که آماده‌سازی، انتخاب اعضا و اجرای نقشه را ترکیب می‌کنند. مأموریت‌های فرعی و فعالیت‌های آزاد نیز در جهان پراکنده‌اند."],
+["🚗 خودروها و وسایل نقلیه","خودرو، موتورسیکلت، قایق، هواپیما و هلیکوپتر در جابه‌جایی و مأموریت‌ها کاربرد دارند. برخی وسایل قابلیت شخصی‌سازی در تعمیرگاه دارند."],
+["🔫 مبارزه و مهارت‌ها","تیراندازی، پوشش‌گیری، رانندگی و توانایی ویژه هر شخصیت در موقعیت‌های مختلف استفاده می‌شود. انتخاب سلاح و ارتقای مهارت‌ها روی شیوه انجام مأموریت اثر دارد."],
+["🎾 فعالیت‌های جانبی","گلف، تنیس، مسابقه، پرواز، شکار و فعالیت‌های شهری بخشی از محتوای خارج از داستان‌اند. بعضی فعالیت‌ها به شخصیت یا محل خاص وابسته‌اند."],
+["🌐 Story Mode و GTA Online","داستان تک‌نفره از GTA Online جداست. محتوای آنلاین، اقتصاد و رویدادهای آن به سرویس و به‌روزرسانی‌های Rockstar وابسته‌اند."],
+["🖥️ نسخه‌ها و عملکرد","نسخه‌های PC و نسل جدید تنظیمات و قابلیت‌های متفاوتی دارند. FPS به نسخه، حالت گرافیکی و سخت‌افزار وابسته است."]
+],
+2:[
+["🤠 Arthur Morgan و گروه","Arthur Morgan عضو گروه Van der Linde است. Dutch، Hosea، John Marston و دیگر اعضا روابط و تعارض‌های اصلی روایت را شکل می‌دهند."],
+["🗺️ نقشه و مناطق","جهان بازی شامل شهرها، اردوگاه‌ها، جنگل‌ها، کوهستان‌ها، رودخانه‌ها و دشت‌هاست. مناطق از نظر آب‌وهوا، حیات‌وحش و فعالیت‌ها تفاوت دارند."],
+["📖 مأموریت‌ها و انتخاب‌ها","مأموریت‌های داستانی، فعالیت‌های گروه، غریبه‌ها، شکار گنج و چالش‌ها جهان را زنده نگه می‌دارند. Honor و برخی تصمیم‌ها بر واکنش‌ها و پایان اثر دارند."],
+["🐎 اسب و وسایل نقلیه","اسب وسیله اصلی سفر است و نژاد، پیوند با اسب و تجهیزات آن بر تجربه اثر می‌گذارند. قطار، قایق و گاری نیز در جهان حضور دارند."],
+["🔫 سلاح‌ها و Dead Eye","هفت‌تیر، رولور، تفنگ، شاتگان و کمان با مهمات و بهبودهای متفاوت قابل استفاده‌اند. Dead Eye برای هدف‌گیری دقیق در نبرد کاربرد دارد."],
+["🦌 شکار و بقا","شکار، ماهیگیری، جمع‌آوری گیاه، رسیدگی به اردوگاه و مدیریت تجهیزات فعالیت‌های جانبی مهم‌اند. کیفیت پوست و لاشه به روش شکار وابسته است."],
+["🌦️ جهان زنده و جزئیات","چرخه آب‌وهوا، حیات‌وحش، تعامل NPCها و واکنش محیطی از ویژگی‌های برجسته بازی‌اند. رفتارهای مشاهده‌شده ممکن است بسته به موقعیت و نسخه تفاوت داشته باشند."],
+["🌐 Red Dead Online","بخش آنلاین تجربه‌ای جدا از کمپین است و محتوای آن با وضعیت پشتیبانی و سرویس‌های Rockstar ارتباط دارد."]
+],
+4:[
+["🌍 جهان و تولید نقشه","جهان‌های Minecraft به‌صورت رویه‌ای ساخته می‌شوند و زیست‌بوم‌ها، غارها، روستاها و سازه‌ها را در خود دارند. دانه جهان (Seed) می‌تواند چیدمان اولیه را تغییر دهد."],
+["⛏️ بقا و جمع‌آوری منابع","بازیکن چوب، سنگ، فلزات و منابع دیگر را جمع می‌کند، ابزار می‌سازد و برای غذا، پناهگاه و مقابله با دشمنان برنامه‌ریزی می‌کند."],
+["🏗️ ساخت‌وساز و Redstone","بلوک‌ها امکان ساخت سازه‌های ساده تا سیستم‌های پیچیده را می‌دهند. Redstone برای مدارها، درها، مزرعه‌های خودکار و ماشین‌های درون‌بازی استفاده می‌شود."],
+["👾 موجودات و ابعاد","موجودات دوستانه، خنثی و مهاجم در زیست‌بوم‌ها حضور دارند. Nether و End ابعاد جداگانه‌ای با منابع و چالش‌های مخصوص‌اند."],
+["🎮 حالت‌ها و دشواری","Survival بر منابع و بقا تکیه دارد؛ Creative منابع نامحدود و پرواز می‌دهد؛ Adventure و Spectator کاربردهای خاص دارند. Hardcore در Java با مرگ دائمی شناخته می‌شود."],
+["🧩 مودها و نسخه‌ها","Java Edition و Bedrock Edition در مودها، سرورها، افزونه‌ها و سازگاری پلتفرمی تفاوت دارند. بسته‌ها و مودهای سنگین می‌توانند عملکرد را تغییر دهند."],
+["🤝 بازی چندنفره","بازی با دوستان از طریق LAN، Realm یا سرورهای آنلاین بسته به Edition و پلتفرم ممکن است. امکانات Cross-play به نسخه Bedrock و سازگاری دستگاه‌ها وابسته است."]
+],
+3:[
+["🚗 مجموعه خودروها","Forza Horizon 5 مجموعه بزرگی از خودروهای تولیدی، اسپرت، کلاسیک، آفرود و مسابقه‌ای دارد. خودروها از نظر کلاس، هندلینگ، قدرت و قابلیت ارتقا متفاوت‌اند."],
+["🏁 مسابقات و رویدادها","مسابقات جاده‌ای، Dirt، Cross Country، دریفت، سرعت، نمایش‌ها و رویدادهای فصلی مسیرهای مختلفی برای پیشرفت فراهم می‌کنند."],
+["🇲🇽 نقشه مکزیک","نقشه از جنگل، ساحل، بیابان، مناطق شهری، آتشفشان و جاده‌های کوهستانی تشکیل شده است. تنوع ارتفاع و سطح مسیر روی انتخاب خودرو اثر دارد."],
+["🔧 تیونینگ و ارتقا","ارتقای موتور، انتقال قدرت، تایر، تعلیق و ترمز و تنظیم نسبت دنده و دیفرانسیل می‌تواند رفتار خودرو را تغییر دهد. تنظیم مناسب به نوع مسابقه وابسته است."],
+["🌦️ آب‌وهوا و فصل‌ها","فصل‌های پویا و شرایطی مانند باران و طوفان شن ظاهر و چسبندگی مسیر را تغییر می‌دهند. رویدادهای فصلی نیز محتوای چرخشی دارند."],
+["🛠️ EventLab و شخصی‌سازی","بازیکنان می‌توانند طرح‌ها و رویدادهای سفارشی بسازند و خودروها را از نظر ظاهر و عملکرد تغییر دهند."],
+["🌐 آنلاین و رقابت","مسابقات گروهی، رویدادهای آنلاین و فعالیت‌های اجتماعی بخشی از تجربه‌اند. Playlist و رویدادهای فعال با فصل و آپدیت تغییر می‌کنند."],
+["🖥️ گرافیک و عملکرد","نسخه PC و Xbox حالت‌های گرافیکی متفاوتی دارند. کیفیت تصویر و FPS به سخت‌افزار، رزولوشن و حالت انتخابی وابسته است."]
+]
+};
+function dossierFor(g){
+ const custom=dossierProfiles[g.id]||[];
+ const base=[
+  ["📚 معرفی و هویت بازی",g.desc],
+  ["📖 داستان و روایت",g.story],
+  ["🎮 گیم‌پلی و مکانیک‌ها",g.gameplay],
+  ["✨ ویژگی‌های شاخص",g.features],
+  ["🕹️ حالت‌ها و تجربه بازی",g.modes],
+  ["🖥️ پلتفرم‌ها و سازگاری",g.platforms],
+  ["⚙️ سیستم موردنیاز و حجم",g.requirements],
+  ["🏢 سازنده و اطلاعات انتشار",`سازنده/ناشر درج‌شده: ${g.studio}.\nوضعیت انتشار: ${g.year}.\nحجم درج‌شده: ${g.size}.\nهر موردی که ناشر رسماً اعلام نکرده باشد، در این پرونده «نامشخص/اعلام‌نشده» محسوب می‌شود.`]
+ ];
+ return [...custom,...base];
+}
+
+const grid=document.getElementById("gameGrid");
+// Put recently added 2026 titles ahead of older catalog entries.
+const featuredOrder=[12,11,15,16,17,14,18,19,20,21,22,23,24,25,26,27,8,7,9,5,6,10,1,2,4,3];
+games.sort((a,b)=>featuredOrder.indexOf(a.id)-featuredOrder.indexOf(b.id));
+function goBack(){
+ if(modal && modal.classList.contains("open")){closeModal();return;}
+ if(history.length>1){history.back();return;}
+ document.getElementById("games").scrollIntoView({behavior:"smooth"});
+}
+const search=document.getElementById("search");
+let filter="all";
+function render(){
+ const q=search.value.trim().toLowerCase();
+ const list=games.filter(g=>(filter==="all"||(filter==="ps"?g.psExclusive===true:g.fps.some(row=>row[0].toLowerCase().includes(filter.toLowerCase()))))&&(g.name.toLowerCase().includes(q)||g.genre.toLowerCase().includes(q)));
+ grid.innerHTML=list.map(g=>`<article class="game" tabindex="0" role="button" aria-label="جزئیات ${g.name}" onclick="showGame(${g.id})" onkeydown="if(event.key==='Enter')showGame(${g.id})"><div class="cover" style="--c1:${g.c1};--c2:${g.c2}"><span>${g.emoji}</span></div><div class="gameBody"><h3>${g.name}</h3><p>${g.genre} · ${g.year}</p><div class="tags"><span class="tag">جزئیات و FPS</span>${g.psExclusive?'<span class="tag psTag">انحصاری پلی‌استیشن</span>':''}</div></div></article>`).join("")||'<p style="color:#b6a8c9">بازی‌ای پیدا نشد.</p>';
+}
+document.getElementById("filters").addEventListener("click",e=>{const b=e.target.closest("button[data-filter]");if(!b)return;filter=b.dataset.filter;document.querySelectorAll("#filters .chip").forEach(x=>x.classList.toggle("active",x===b));render();});
+search.addEventListener("input",render);
+const modal=document.getElementById("modal");
+let openedGameId=null;
+function showGame(id){
+ const g=games.find(x=>x.id===id);if(!g)return;
+ openedGameId=id;
+ document.getElementById("modalEmoji").textContent=g.emoji;
+ document.getElementById("modalEmoji").style.background=`linear-gradient(135deg,${g.c1},${g.c2})`;
+ document.getElementById("modalName").textContent=g.name;
+ document.getElementById("modalGenre").textContent=g.genre;
+ document.getElementById("modalDescription").textContent=g.desc+"\n\nپرونده اختصاصی NEXOR: اطلاعات اختصاصی سبک بازی، جهان، شخصیت‌ها، سیستم‌ها و وضعیت فنی در بخش‌های زیر آمده است. موارد اعلام‌نشده عمداً حدس زده نشده‌اند.";
+ document.getElementById("infoGrid").innerHTML=[["سال/وضعیت انتشار",g.year],["سازنده/ناشر",g.studio],["سبک",g.genre],["حجم",g.size]].map(([a,b])=>`<div class="info"><small>${a}</small><b>${b}</b></div>`).join("");
+ const sections=dossierFor(g);
+ document.getElementById("longDetails").innerHTML=sections.map(([t,v],i)=>`<section class="detailBlock ${i===0?"wide":""}"><h4>${t}</h4><p>${v||"اطلاعات تأییدشده‌ای در این پرونده ثبت نشده است."}</p></section>`).join("");
+ document.getElementById("fpsBody").innerHTML=g.fps.map(r=>{const status=/تخمین|متغیر|هدف|نزدیک|حدود|\\+/.test(r[2])||/هدف|تخمین|متغیر/.test(r[3])?"estimate":/نامشخص|اعلام نشده|تأیید نشده/.test(r[2]+" "+r[3])?"unknown":"confirmed";return `<tr><td>${r[0]}</td><td>${r[1]}</td><td class="fps">${r[2]}<br><span class="fpsStatus ${status}">${status==="estimate"?"هدف یا تخمینی":status==="unknown"?"اطلاعات تأییدشده موجود نیست":"داده ثبت‌شده"}</span></td><td>${r[3]}</td></tr>`}).join("");
+ modal.classList.add("open");modal.setAttribute("aria-hidden","false");document.body.style.overflow="hidden";
+}
+function closeModal(){modal.classList.remove("open");modal.setAttribute("aria-hidden","true");document.body.style.overflow="";openedGameId=null}
+document.getElementById("closeModal").onclick=closeModal;
+document.getElementById("topBack").onclick=goBack;
+modal.addEventListener("click",e=>{if(e.target===modal)closeModal()});
+document.addEventListener("keydown",e=>{if(e.key==="Escape")closeModal()});
+render();
+</script>
+</body>
+</html>
